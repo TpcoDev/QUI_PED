@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+import logging
+import pytz
+
+_logger = logging.getLogger(__name__)
+
+
+class ProjectTask(models.Model):
+    _inherit = 'project.task'
+    
+    picking_id = fields.Many2one(comodel_name='stock.picking', string=_('Albarán'))
+    state_oe = fields.Selection(related='picking_id.state', string=_('Estado de OE'))
+    cantidad_reservada = fields.Float(related='picking_id.move_ids_without_package.reserved_availability')
+    cantidad_despachar = fields.Float(string='Cantidad a despachar')
+    
+    partner_cod_sap = fields.Char(related='partner_id.vat', string='Cod SAP Cliente')
+    lc_fecha_hora = fields.Datetime(string=_('Fecha y hora LC'), related='partner_id.lc_fecha_hora')
+    lc_disponible = fields.Monetary(
+        string=_('LC disponible'), currency_field='company_currency',
+        related='partner_id.lc_disponible'
+    )
+    company_currency = fields.Many2one(
+        comodel_name="res.currency", string='Currency', related='company_id.currency_id',
+        readonly=True
+    )
+    
+    planification_hora_date = fields.Datetime(string=_('Fecha y hora Planificación'))
+    planification = fields.Selection(
+        selection=[('planifica', _('Planifica')), ('no_planifica', _('No Planifica')), ('pendiente', _('Pendiente'))],
+        string='Planificación', default='planifica'
+    )
+    
+    def _prepare_task_value(self, values):
+        vals = {}
+        if values.get('task_title', False):
+            vals.update({'name': values['task_title'], 'is_fsm': True})
+        if values.get('dispatch_date', False):
+            d, m, Y = values["dispatch_date"].split('/')
+            tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
+            
+            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00')
+            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00')
+            
+            vals.update({
+                'planned_date_begin': planned_date_begin,
+                'planned_date_end': planned_date_end,
+            })
+        if values.get('sale_order_id', False):
+            user_id = self.env['sale.order'].browse(int(values['sale_order_id'])).user_id
+            vals.update({
+                'sale_order_id': int(values['sale_order_id']),
+                'user_id': user_id.id
+            })
+        if values.get('line_id', False):
+            vals.update({
+                'sale_line_id': int(values['line_id']),
+            })
+        if values.get('cantidad', False):
+            vals.update({
+                'cantidad_despachar': values['cantidad'],
+            })
+        if values.get('partner_id', False):
+            project_id = self.env['project.project'].search([
+                ('is_fsm', '=', True), ('partner_id', '=', int(values['partner_id']))
+            ], limit=1)
+            vals.update({
+                'partner_id': int(values['partner_id']),
+                'project_id': project_id.id
+            })
+        return vals
+    
+    @api.model
+    def create_project_task(self, vals):
+        _logger.info('==== create a task ==== %r', vals)
+        values = self._prepare_task_value(vals)
+        try:
+            task = self.sudo().create(values)
+            if task:
+                task.write({
+                    'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}'
+                })
+                return {
+                    'title': _('Task Created'),
+                    'message': _('Ticket has been created successfully. Your Task Number is %s') % (task.name),
+                    'task': task
+                }
+        except Exception as e:
+            _logger.info('=======%r', e)
+            return {'title': 'Error', 'message': f'{e}'}

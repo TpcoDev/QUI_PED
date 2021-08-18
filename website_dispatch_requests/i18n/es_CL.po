@@ -1,0 +1,248 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_dispatch_requests
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-13 16:18+0000\n"
+"PO-Revision-Date: 2021-08-13 12:22-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_CL\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,help:website_dispatch_requests.field_project_task__state_oe
+msgid ""
+" * Draft: The transfer is not confirmed yet. Reservation doesn't apply.\n"
+" * Waiting another operation: This transfer is waiting for another "
+"operation before being ready.\n"
+" * Waiting: The transfer is waiting for the availability of some "
+"products.\n"
+"(a) The shipping policy is \"As soon as possible\": no product could be "
+"reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": not all the "
+"products could be reserved.\n"
+" * Ready: The transfer is ready to be processed.\n"
+"(a) The shipping policy is \"As soon as possible\": at least one product "
+"has been reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": all product "
+"have been reserved.\n"
+" * Done: The transfer has been processed.\n"
+" * Cancelled: The transfer has been cancelled."
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__picking_id
+#, python-format
+msgid "Albarán"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Cantidad Solicitada"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__partner_cod_sap
+msgid "Cod SAP Cliente"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model,name:website_dispatch_requests.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Create a new Dispatch Resquests"
+msgstr "Crear una Solicitud de Despacho"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__company_currency
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__company_currency
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__company_currency
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.custom_header
+msgid "Dispatch Requests"
+msgstr "Solicitud de Despacho"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__display_name
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Enviar"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__state_oe
+#, python-format
+msgid "Estado de OE"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid ""
+"Fecha de despacho solicitada\n"
+"                                                *"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: code:addons/website_dispatch_requests/models/res_partner.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__lc_fecha_hora
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__lc_fecha_hora
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__lc_fecha_hora
+#, python-format
+msgid "Fecha y hora LC"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__planification_hora_date
+#, python-format
+msgid "Fecha y hora Planificación"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid ""
+"Horario de recepción\n"
+"                                                posibles"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__id
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__lc_disponible
+#, python-format
+msgid "LC disponible"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task____last_update
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__lc_disponible
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__lc_disponible
+msgid "Lc Disponible"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__project_task__planification__no_planifica
+#, python-format
+msgid "No Planifica"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Pedidos de Venta"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Pedidos..."
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__project_task__planification__pendiente
+#, python-format
+msgid "Pendiente"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__project_task__planification__planifica
+#, python-format
+msgid "Planifica"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__planification
+msgid "Planificación"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Producto del Pedido"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Producto..."
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__cantidad_reservada
+msgid "Quantity Reserved"
+msgstr "Cantidad Reservada"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,help:website_dispatch_requests.field_project_task__cantidad_reservada
+msgid "Quantity that has already been reserved for this move"
+msgstr "Cantidad ha sido reservada por este movimiento"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/controllers/main.py:0
+#, python-format
+msgid "Some required fields are empty."
+msgstr "Algunos campos requeridos están vacíos."
+
+#. module: website_dispatch_requests
+#: model:ir.model,name:website_dispatch_requests.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#, python-format
+msgid "Task Created"
+msgstr "Tarea creada"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Task Title *"
+msgstr "Título Solicitud"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,help:website_dispatch_requests.field_project_task__partner_cod_sap
+msgid ""
+"The Tax Identification Number. Complete it if the contact is subjected to "
+"government taxes. Used in some legal statements."
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#, python-format
+msgid "Ticket has been created successfully. Your Task Number is %s"
+msgstr "Tarea ha sido creada satisfactoriamente, la tarea es %s"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "YYYY-MM-DD"
+msgstr ""

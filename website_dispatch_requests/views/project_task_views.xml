@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_task_form2_inherit" model="ir.ui.view">
+            <field name="name">view.task.form2.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="sale_timesheet.view_task_form2_inherit_sale_timesheet"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='sale_line_id']" position="after">
+                    <field name="picking_id"/>
+                    <field name="state_oe"/>
+                    <field name="cantidad_reservada"/>
+                    <field name="lc_fecha_hora"/>
+                    <field name="planification_hora_date"/>
+                </xpath>
+
+                <xpath expr="//page[@name='description_page']" position="after">
+                    <page string="Asigna Camión">
+                        <group>
+                            <group>
+                                <field name="cantidad_despachar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="project_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.inherit.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_cod_sap"/>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="lc_disponible"/>
+                    <field name="planification" widget="radio" options="{'horizontal': true}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

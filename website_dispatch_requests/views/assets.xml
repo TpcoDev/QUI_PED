@@ -1,0 +1,8 @@
+<odoo>
+    <template id="website_dispatch_requests_assets_frontend" inherit_id="website.assets_frontend"
+              name="Dispatch Requests">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/website_dispatch_requests/static/src/js/main.js"></script>
+        </xpath>
+    </template>
+</odoo>
