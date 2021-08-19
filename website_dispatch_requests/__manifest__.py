@@ -7,13 +7,13 @@
     """,
     
     'author': "TPCO",
-    'website': "http://www.yourcompany.com",
+    'website': "http://www.Tpco.com",
     
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Website/Website',
-    'version': '1.20210819',
+    'version': '1.20210820',
     
     # any module necessary for this one to work correctly
     'depends': ['website', 'sale_timesheet', 'sale_project', 'industry_fsm', 'stock'],
