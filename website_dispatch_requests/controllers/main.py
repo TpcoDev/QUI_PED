@@ -86,8 +86,8 @@ class DispatchRequestsController(http.Controller):
                 [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line_id.id)])
             sum_qty = sum(moves.mapped('product_uom_qty'))
             if sum_qty > 0:
-                cantidad = sum_qty - order_line_id.product_uom_qty
-        return cantidad
+                cantidad = order_line_id.product_uom_qty - sum_qty
+        return abs(cantidad)
     
     @http.route('/dispatch/validate', type='http', auth="user", website=True)
     def dispatch_validate(self, page=0, category=None, topic=None, search='', ppg=False, **post):
