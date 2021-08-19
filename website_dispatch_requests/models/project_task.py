@@ -2,6 +2,7 @@
 
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 import logging
 import pytz
 
@@ -79,7 +80,7 @@ class ProjectTask(models.Model):
         values = self._prepare_task_value(vals)
         task = ''
         try:
-            task = self.sudo().create(values)
+            task = self.sudo().with_context({'pass': True}).create(values)
             if task:
                 task.write({
                     'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
@@ -96,3 +97,17 @@ class ProjectTask(models.Model):
                 'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (vals['task_title'])
             }
             # return {'title': 'Error', 'message': f'{e}'}
+    
+    @api.constrains('sale_line_id')
+    def _check_sale_line_type(self):
+        if self.env.context.get('pass', False):
+            return True
+        
+        for task in self.sudo():
+            if task.sale_line_id:
+                if not task.sale_line_id.is_service or task.sale_line_id.is_expense:
+                    raise ValidationError(_(
+                        'You cannot link the order item %(order_id)s - %(product_id)s to this task because it is a re-invoiced expense.',
+                        order_id=task.sale_line_id.order_id.name,
+                        product_id=task.sale_line_id.product_id.display_name,
+                    ))
