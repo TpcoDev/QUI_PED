@@ -119,6 +119,20 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
 
                 }, 3000);
             }
+
+            this._rpc({
+                route: "/dispatch/get_title/",
+                params: {
+                    order_sale_id: this.$order.val(),
+                    order_line_id: this.$line.val(),
+                    qty: this.$cantidadSolicitada.val(),
+                },
+            }).then(function (data) {
+                // populate states and display
+                var taskTitle = $("input[name='task_title']");
+                taskTitle.attr('value', data);
+
+            });
         },
         /**
          * @private
@@ -131,6 +145,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 params: {
                     order_sale_id: this.$order.val(),
                     order_line_id: this.$line.val(),
+                    qty: this.$cantidadSolicitada.val(),
                 },
             }).then(function (data) {
                 // populate states and display

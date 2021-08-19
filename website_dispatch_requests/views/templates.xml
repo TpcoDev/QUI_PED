@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="form-row">
                                             <div t-attf-class="form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
-                                                <label class="control-label" for="name">Task Title *</label>
+                                                <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
                                                        t-att-readonly="'1'"
                                                        t-att-value="'task_title' in checkout and checkout['task_title']"
@@ -44,8 +44,8 @@
 
                                             <div t-attf-class="form-group #{error.get('dispatch_date') and 'o_has_error' or ''} col-6"
                                                  id="div_email">
-                                                <label class="control-label" for="email">Fecha de despacho solicitada
-                                                    *</label>
+                                                <label class="control-label" for="email">Fecha de despacho
+                                                    solicitada</label>
                                                 <div class="input-group date" id="datetimepicker4"
                                                      data-target-input="nearest">
                                                     <input type="text" name="dispatch_date"
@@ -109,7 +109,7 @@
                                                        t-att-value="'cantidad' in checkout and checkout['cantidad']"/>
                                             </div>
                                             <div class="col-6">
-                                                <label class="control-label" for="cantidad">Cantidad Pendiente por
+                                                <label class="control-label" for="cantidad">Pendiente por
                                                     Solicitar</label>
                                                 <input type="number" name="cantidad_pendiente"
                                                        class="form-control"

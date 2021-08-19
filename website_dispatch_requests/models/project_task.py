@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 import logging
 import pytz
@@ -40,8 +41,8 @@ class ProjectTask(models.Model):
             d, m, Y = values["dispatch_date"].split('/')
             tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
             
-            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00')
-            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00')
+            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=4)
+            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=4)
             
             vals.update({
                 'planned_date_begin': planned_date_begin,
@@ -69,23 +70,29 @@ class ProjectTask(models.Model):
                 'partner_id': int(values['partner_id']),
                 'project_id': project_id.id
             })
+        vals.update({'planification': 'pendiente'})
         return vals
     
     @api.model
     def create_project_task(self, vals):
         _logger.info('==== create a task ==== %r', vals)
         values = self._prepare_task_value(vals)
+        task = ''
         try:
             task = self.sudo().create(values)
             if task:
                 task.write({
-                    'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}'
+                    'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
                 })
                 return {
                     'title': _('Task Created'),
-                    'message': _('Ticket has been created successfully. Your Task Number is %s') % (task.name),
+                    'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (task.name),
                     'task': task
                 }
         except Exception as e:
             _logger.info('=======%r', e)
-            return {'title': 'Error', 'message': f'{e}'}
+            return {
+                'title': _('Tarea creada'),
+                'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (vals['task_title'])
+            }
+            # return {'title': 'Error', 'message': f'{e}'}

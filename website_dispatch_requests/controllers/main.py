@@ -53,14 +53,28 @@ class DispatchRequestsController(http.Controller):
         return error
     
     @http.route('/dispatch/get_title', type='json', auth="public", methods=['POST'], website=True)
-    def get_task_title(self, order_sale_id=False, order_line_id=False, **kw):
-        title = ''
+    def get_task_title(self, order_sale_id=False, order_line_id=False, qty=False, **kw):
+        title = name = default_code = product_uom_name = ''
+        product_uom_qty = -1
         if order_sale_id:
             order_id = request.env['sale.order'].sudo().browse(int(order_sale_id))
-            title = f'{order_id.name}'
+            name = order_id.name
         if order_line_id:
             order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
-            title += f'-{order_line_id.product_id.default_code}-{order_line_id.product_uom_qty}-{order_line_id.product_uom.name}'
+            default_code = order_line_id.product_id.default_code
+            product_uom_name = order_line_id.product_uom.name
+        if qty:
+            product_uom_qty = qty
+        
+        if name:
+            title += f'{name}'
+        if default_code:
+            title += f'-{default_code}'
+        if product_uom_qty:
+            product_uom_qty = 0 if product_uom_qty == -1 else product_uom_qty
+            title += f'-{product_uom_qty}'
+        if product_uom_name:
+            title += f'-{product_uom_name}'
         return title
     
     @http.route('/dispatch/get_cantidad', type='json', auth="public", methods=['POST'], website=True)
@@ -69,7 +83,7 @@ class DispatchRequestsController(http.Controller):
         if order_line_id:
             order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
             moves = request.env['stock.move'].sudo().search(
-                [('state', '=', 'cancel'), ('sale_line_id', '=', order_line_id.id)])
+                [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line_id.id)])
             sum_qty = sum(moves.mapped('product_uom_qty'))
             if sum_qty > 0:
                 cantidad = sum_qty - order_line_id.product_uom_qty
@@ -126,9 +140,10 @@ class DispatchRequestsController(http.Controller):
         product_ids = sale_order_lines.mapped('product_id')
         sale_order_ids = sale_order_lines.mapped('order_id')
         
-        cantidad_pendiente = 0
+        cantidad = cantidad_pendiente = 0
         checkout_values.update({
-            'cantidad_pendiente': cantidad_pendiente
+            'cantidad_pendiente': cantidad_pendiente,
+            'cantidad': cantidad
         })
         
         keep = QueryURL('/dispatch')
