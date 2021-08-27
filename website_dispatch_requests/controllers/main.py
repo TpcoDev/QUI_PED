@@ -85,8 +85,7 @@ class DispatchRequestsController(http.Controller):
             moves = request.env['stock.move'].sudo().search(
                 [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line_id.id)])
             sum_qty = sum(moves.mapped('product_uom_qty'))
-            if sum_qty > 0:
-                cantidad = order_line_id.product_uom_qty - sum_qty
+            cantidad = order_line_id.product_uom_qty - sum_qty
         return abs(cantidad)
     
     @http.route('/dispatch/validate', type='http', auth="user", website=True)
