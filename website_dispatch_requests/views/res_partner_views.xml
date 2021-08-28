@@ -8,8 +8,8 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='category_id']" position="before">
-                    <field name="lc_disponible"/>
-                    <field name="lc_fecha_hora"/>
+                    <field name="lc_disponible" widget="monetary" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
+                    <field name="lc_fecha_hora" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
                 </xpath>
 
             </field>

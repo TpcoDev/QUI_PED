@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form[1]/header[1]/button[@name='action_confirm'][2]" position="replace">
+                    <button name="action_confirm"
+                            string="Confirm" type="object"
+                            attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('lc_verificacion', 'in',
+                        ['pendiente', 'no_aprueba'])]}"/>
+                </xpath>
+
+                <xpath expr="//button[@id='action_confirm']" position="replace">
+                    <button name="action_confirm" id="action_confirm"
+                            string="Confirm" class="btn-primary" type="object"
+                            attrs="{'invisible': ['|', ('state', 'not in', ['sent']), ('lc_verificacion', 'in',
+                        ['pendiente', 'no_aprueba'])]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="codigo_sap"/>
+                    <field name="lc_disponible"/>
+                    <field name="lc_verificacion" widget="radio" options="{'horizontal': True}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="lc_fecha_hora"/>
+                    <field name="lc_fecha_hora_verificacion"
+                           attrs="{'readonly': [('lc_verificacion', '=', 'pendiente')]}"/>
+                </xpath>
+
+                <xpath expr="//page[@name='other_information']" position="after">
+                    <page string="Detalle Ordenes Pendientes">
+                        <field name="move_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="origin"/>
+                                <field name="product_qty"/>
+                                <field name="quantity_done"/>
+                                <field name="partner_name"/>
+                                <field name="partner_codigo_sap"/>
+                                <field name="line_price_unit"/>
+                                <field name="product_id"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="product_uom_category_id" invisible="1"/>
+                                <field name="product_uom_qty"/>
+                                <field name="reserved_availability" string="Cantidad reservada"/>
+                                <field name="total_reserved"/>
+                                <field name="total_demanded"/>
+                                <field name="product_uom"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
