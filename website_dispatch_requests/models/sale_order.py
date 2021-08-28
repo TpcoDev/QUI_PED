@@ -38,9 +38,13 @@ class SaleOrder(models.Model):
     @api.depends('move_ids.reserved_availability', 'move_ids.product_uom_qty', 'move_ids.line_price_unit')
     def _compute_total(self):
         self.ensure_one()
-        for rec in self.move_ids:
-            self.total_reserved += rec.reserved_availability * rec.line_price_unit
-            self.total_demanded += rec.product_uom_qty * rec.line_price_unit
+        if len(self.move_ids):
+            for rec in self.move_ids:
+                self.total_reserved += rec.reserved_availability * rec.line_price_unit
+                self.total_demanded += rec.product_uom_qty * rec.line_price_unit
+        else:
+            self.total_demanded = 0.0
+            self.total_reserved = 0.0
 
     @api.depends('name', 'client_order_ref')
     def _compute_dispatch_name(self):
@@ -80,3 +84,18 @@ class SaleOrder(models.Model):
             moves = self.env['stock.move'].search(
                 [('partner_id', '=', self.partner_id.id), ('state', 'not in', ('cancel', 'done'))])
             self.move_ids = [(6, 0, moves.ids)]
+
+    def _action_confirm(self):
+        ctx = self.env.context.copy()
+        ctx.update({'no_create_picking': True})
+        self = self.with_context(ctx)
+        return super(SaleOrder, self)._action_confirm()
+
+
+class SaleOrdeLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    def _action_launch_stock_rule(self, previous_product_uom_qty=False):
+        if self.env.context.get('no_create_picking', False):
+            return True
+        return super(SaleOrdeLine, self)._action_launch_stock_rule(previous_product_uom_qty)
