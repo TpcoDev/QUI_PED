@@ -30,6 +30,18 @@ class SaleOrder(models.Model):
         inverse_name='sale_order_id', string=_('Detalle Ordenes Pendientes')
     )
 
+    total_reserved = fields.Monetary(compute='_compute_total', string=_('Total Reservado'),
+                                     currency_field='company_currency')
+    total_demanded = fields.Monetary(compute='_compute_total', string=_('Total Demandado'),
+                                     currency_field='company_currency')
+
+    @api.depends('move_ids.reserved_availability', 'move_ids.product_uom_qty', 'move_ids.line_price_unit')
+    def _compute_total(self):
+        self.ensure_one()
+        for rec in self.move_ids:
+            self.total_reserved += rec.reserved_availability * rec.line_price_unit
+            self.total_demanded += rec.product_uom_qty * rec.line_price_unit
+
     @api.depends('name', 'client_order_ref')
     def _compute_dispatch_name(self):
         for rec in self:
@@ -39,8 +51,32 @@ class SaleOrder(models.Model):
 
             rec.dispatch_name = var_name
 
+    @api.returns('mail.message', lambda value: value.id)
+    def message_chatter(self, **kwargs):
+        return super(SaleOrder, self).message_post(**kwargs)
+
+    @api.onchange('lc_verificacion')
+    def _onchange_lc_verificacion(self):
+        self.ensure_one()
+        if self.lc_verificacion == 'aprobado':
+            self.lc_fecha_hora_verificacion = fields.Datetime.now()
+            display_msg = (
+                f"LC Disponible {self.lc_disponible} \n"
+                f"Verificación LC {self.lc_verificacion} \n"
+                f"Fecha y hora Verificación {self.lc_fecha_hora_verificacion} \n"
+                f"Fecha y hora LC {self.lc_fecha_hora} \n"
+            )
+            order = self.env['sale.order'].search([('id', 'in', self.ids)], limit=1)
+            order.message_chatter(
+                subject="LC Verificacion -> Aprobada",
+                body=display_msg
+            )
+        elif self.lc_verificacion == 'pendiente':
+            self.lc_fecha_hora_verificacion = False
+
     @api.onchange('partner_id')
     def _onchange_moves(self):
         if self.partner_id:
-            moves = self.env['stock.move'].search([('partner_id', '=', self.partner_id.id)])
+            moves = self.env['stock.move'].search(
+                [('partner_id', '=', self.partner_id.id), ('state', 'not in', ('cancel', 'done'))])
             self.move_ids = [(6, 0, moves.ids)]

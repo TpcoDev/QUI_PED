@@ -26,17 +26,21 @@
                     <field name="codigo_sap"/>
                     <field name="lc_disponible"/>
                     <field name="lc_verificacion" widget="radio" options="{'horizontal': True}"/>
+                    <field name="total_reserved" widget="monetary"/>
                 </xpath>
 
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="lc_fecha_hora"/>
                     <field name="lc_fecha_hora_verificacion"
                            attrs="{'readonly': [('lc_verificacion', '=', 'pendiente')]}"/>
+                    <field name="total_demanded" widget="monetary"/>
                 </xpath>
 
                 <xpath expr="//page[@name='other_information']" position="after">
                     <page string="Detalle Ordenes Pendientes">
-                        <field name="move_ids" nolabel="1">
+                        <field name="move_ids" nolabel="1"
+                               attrs="{'readonly': 1}" force_save="1"
+                               options="{'no_create': True, 'no_edit':True, 'delete': False, 'no_open': True}">
                             <tree editable="bottom">
                                 <field name="origin"/>
                                 <field name="product_qty"/>
@@ -49,8 +53,8 @@
                                 <field name="product_uom_category_id" invisible="1"/>
                                 <field name="product_uom_qty"/>
                                 <field name="reserved_availability" string="Cantidad reservada"/>
-                                <field name="total_reserved"/>
-                                <field name="total_demanded"/>
+                                <field name="total_demanded" widget="monetary" sum="Total Demandada"/>
+                                <field name="total_reserved" widget="monetary" sum="Total Reservada"/>
                                 <field name="product_uom"/>
                                 <field name="state"/>
                             </tree>

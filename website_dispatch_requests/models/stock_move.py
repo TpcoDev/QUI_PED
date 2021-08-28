@@ -10,8 +10,13 @@ class StockMove(models.Model):
     partner_name = fields.Char(related='partner_id.name', string=_('Nombre del cliente'))
     partner_codigo_sap = fields.Char(related='partner_id.vat', string=_('Código SAP'))
     line_price_unit = fields.Float(related='sale_line_id.price_unit', string=_('Precio unitario de venta'))
-    total_reserved = fields.Float(compute='_compute_total', string=_('Total Reservado'))
-    total_demanded = fields.Float(compute='_compute_total', string=_('Total Demandado'))
+    total_reserved = fields.Monetary(compute='_compute_total', string=_('Total Reservado'), currency_field='company_currency')
+    total_demanded = fields.Monetary(compute='_compute_total', string=_('Total Demandado'), currency_field='company_currency')
+
+    company_currency = fields.Many2one(
+        comodel_name="res.currency", string='Currency', related='company_id.currency_id',
+        readonly=True
+    )
 
     @api.depends('reserved_availability', 'product_uom_qty', 'line_price_unit')
     def _compute_total(self):
