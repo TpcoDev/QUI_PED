@@ -71,10 +71,11 @@ class SaleOrder(models.Model):
                 f"Fecha y hora LC {self.lc_fecha_hora} \n"
             )
             order = self.env['sale.order'].search([('id', 'in', self.ids)], limit=1)
-            order.message_chatter(
-                subject="LC Verificacion -> Aprobada",
-                body=display_msg
-            )
+            if order:
+                order.message_chatter(
+                    subject="LC Verificacion -> Aprobada",
+                    body=display_msg
+                )
         elif self.lc_verificacion == 'pendiente':
             self.lc_fecha_hora_verificacion = False
 
