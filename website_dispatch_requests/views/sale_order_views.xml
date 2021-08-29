@@ -47,6 +47,7 @@
                                 <field name="quantity_done"/>
                                 <field name="partner_name"/>
                                 <field name="partner_codigo_sap"/>
+                                <field name="reference"/>
                                 <field name="line_price_unit"/>
                                 <field name="product_id"/>
                                 <field name="company_id" invisible="1"/>
