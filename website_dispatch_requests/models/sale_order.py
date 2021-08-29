@@ -83,7 +83,7 @@ class SaleOrder(models.Model):
     def _onchange_moves(self):
         if self.partner_id:
             moves = self.env['stock.move'].search(
-                [('partner_id', '=', self.partner_id.id), ('state', 'not in', ('cancel', 'done'))])
+                [('partner_codigo_sap', '=', self.partner_id.vat), ('state', 'not in', ('cancel', 'done'))])
             self.move_ids = [(6, 0, moves.ids)]
 
     def _action_confirm(self):
