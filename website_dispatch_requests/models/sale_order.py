@@ -49,10 +49,10 @@ class SaleOrder(models.Model):
     @api.depends('name', 'client_order_ref')
     def _compute_dispatch_name(self):
         for rec in self:
-            var_name = rec.name
+            var_name = ''
             if rec.client_order_ref:
-                var_name += f' - {rec.client_order_ref}'
-
+                var_name += f'{rec.client_order_ref} -'
+            var_name += f'{rec.name}'
             rec.dispatch_name = var_name
 
     @api.returns('mail.message', lambda value: value.id)
