@@ -11,12 +11,12 @@ _logger = logging.getLogger(__name__)
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
-    
+
     picking_id = fields.Many2one(comodel_name='stock.picking', string=_('Albarán'))
     state_oe = fields.Selection(related='picking_id.state', string=_('Estado de OE'))
     cantidad_reservada = fields.Float(related='picking_id.move_ids_without_package.reserved_availability')
     cantidad_despachar = fields.Float(string='Cantidad a despachar')
-    
+
     partner_cod_sap = fields.Char(related='partner_id.vat', string='Cod SAP Cliente')
     lc_fecha_hora = fields.Datetime(string=_('Fecha y hora LC'), related='partner_id.lc_fecha_hora')
     lc_disponible = fields.Monetary(
@@ -27,13 +27,13 @@ class ProjectTask(models.Model):
         comodel_name="res.currency", string='Currency', related='company_id.currency_id',
         readonly=True
     )
-    
+
     planification_hora_date = fields.Datetime(string=_('Fecha y hora Planificación'))
     planification = fields.Selection(
         selection=[('planifica', _('Planifica')), ('no_planifica', _('No Planifica')), ('pendiente', _('Pendiente'))],
         string='Planificación', default='planifica'
     )
-    
+
     def _prepare_task_value(self, values):
         vals = {}
         if values.get('task_title', False):
@@ -41,10 +41,10 @@ class ProjectTask(models.Model):
         if values.get('dispatch_date', False):
             d, m, Y = values["dispatch_date"].split('/')
             tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
-            
+
             planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=4)
             planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=4)
-            
+
             vals.update({
                 'planned_date_begin': planned_date_begin,
                 'planned_date_end': planned_date_end,
@@ -73,7 +73,7 @@ class ProjectTask(models.Model):
             })
         vals.update({'planification': 'pendiente'})
         return vals
-    
+
     @api.model
     def create_project_task(self, vals):
         _logger.info('==== create a task ==== %r', vals)
@@ -85,6 +85,7 @@ class ProjectTask(models.Model):
                 task.write({
                     'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
                 })
+                task.sale_line_id._action_launch_stock_rule()
                 return {
                     'title': _('Task Created'),
                     'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (task.name),
@@ -97,12 +98,12 @@ class ProjectTask(models.Model):
                 'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (vals['task_title'])
             }
             # return {'title': 'Error', 'message': f'{e}'}
-    
+
     @api.constrains('sale_line_id')
     def _check_sale_line_type(self):
         if self.env.context.get('pass', False):
             return True
-        
+
         for task in self.sudo():
             if task.sale_line_id:
                 if not task.sale_line_id.is_service or task.sale_line_id.is_expense:
