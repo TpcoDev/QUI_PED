@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+        <record id='asignar_remolque_view_form' model='ir.ui.view'>
+        <field name="name">asignar.remolque.form</field>
+        <field name="model">asignar_remolque</field>
+        <field name="arch" type="xml">
+            <form string="Remolque asignado">
+                <sheet>
+                    <group>
+                        <group >
+                            <field name="dia_operacion" readonly="1"/>
+                            <field name="solicitud_despacho" readonly="1"/>
+                            <field name="patente_remolque" readonly="1"/>
+                            <field name="modelo_remolque" readonly="1"/>
+                            <field name="status_remolque" readonly="1"/>
+                            <field name="capacidad_carga" readonly="1"/>
+                        </group>
+
+                        <group >
+                            <field name="cantidad_despachar" readonly="1"/>
+                            <field name="cliente" readonly="1"/>
+                            <field name="pedido_venta" readonly="1"/>
+                            <field name="orden_entrega" readonly="1"/>
+                            <field name="asignada" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id='remolque_dia_view_tree' model='ir.ui.view'>
+        <field name="name">asignar.remolque.tree</field>
+        <field name="model">asignar_remolque</field>
+        <field name="arch" type="xml">
+            <tree string="Remolque asignado">
+                <field name="dia_operacion"/>
+                <field name="solicitud_despacho"/>
+                <field name="patente_remolque"/>
+                <field name="modelo_remolque"/>
+                <field name="status_remolque"/>
+                <field name="capacidad_carga"/>
+                <field name="cantidad_despachar"/>
+                <field name="cliente"/>
+                <field name="pedido_venta"/>
+                <field name="orden_entrega"/>
+                <field name="asignada"/>
+            </tree>
+        </field>
+    </record>
+
+    </data>
+
+</odoo>

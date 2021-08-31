@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+
+        <record id='remolque_dia_view_form' model='ir.ui.view'>
+        <field name="name">remolque.dia.form</field>
+        <field name="model">remolque_dia</field>
+        <field name="arch" type="xml">
+            <form string="Remolque Día">
+                <sheet>
+                    <group>
+                        <group >
+                            <field name="patente_remolque"/>
+                            <field name="modelo_remolque" />
+                            <field name="rut_chofer_camion"/>
+                            <field name="patente_camion_tracto"/>
+                        </group>
+
+                        <group >
+                            <field name="chofer_camion" />
+                            <field name="status_trailer_day"/>
+                            <field name="dia_operacion" />
+                            <field name="capacidad_carga" />
+                            <field name="creador" force_save="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id='remolque_dia_view_tree' model='ir.ui.view'>
+        <field name="name">remolque.dia.tree</field>
+        <field name="model">remolque_dia</field>
+        <field name="arch" type="xml">
+            <tree string="Remolque Día">
+                <field name="status_trailer_day"/>
+                <field name="patente_remolque" />
+                <field name="modelo_remolque"/>
+                <field name="dia_operacion"/>
+                <field name="capacidad_carga" />
+                <field name="chofer_camion"/>
+                <field name="rut_chofer_camion"/>
+                <field name="patente_camion_tracto" />
+                <field name="creador"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="remolque_dia_view_search" model="ir.ui.view">
+        <field name="name">remolque.dia.search</field>
+        <field name="model">remolque_dia</field>
+        <field name="arch" type="xml">
+            <search string="Remolque Día">
+
+                <field name="chofer_camion"/>
+                <field name="status_trailer_day"/>
+                <field name="dia_operacion"/>
+                <field name="creador"/>
+
+           </search>
+        </field>
+    </record>
+
+        <record id="remolque_dia_action" model="ir.actions.act_window">
+            <field name="name">Remolque Día</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">remolque_dia</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="fleet_additionals.remolque_dia_action" parent="fleet.fleet_vehicles" name="Remolque Día"  id="menu_remolque_dia" sequence="1"/>
+
+    </data>
+
+</odoo>

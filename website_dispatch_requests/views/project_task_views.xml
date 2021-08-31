@@ -22,7 +22,7 @@
                 </xpath>
 
                 <xpath expr="//page[@name='description_page']" position="after">
-                    <page string="Asigna Camión">
+                    <page string="Asigna Camión" name="asiganar_remolque">
                         <group>
                             <group>
                                 <field name="cantidad_despachar"/>

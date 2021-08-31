@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_remolque_dia,access_remolque_dia,model_remolque_dia,fleet.fleet_group_user,1,1,1,1
+access_asignar_remolque,access_asignar_remolque,model_asignar_remolque,fleet.fleet_group_user,1,1,1,1

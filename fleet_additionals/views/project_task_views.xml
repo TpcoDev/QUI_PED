@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_fleet_additionals_task_form_inherit" model="ir.ui.view">
+            <field name="name">view.fleet.additionals.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="website_dispatch_requests.view_task_form2_inherit"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='asiganar_remolque']/group" position="after">
+                    <group>
+                        <group>
+                            <field name="mostrar_page" invisible="1"/>
+                            <field name="dia_operacion"/>
+                            <field name="patente_remolque"/>
+                            <field name="modelo_remolque"/>
+                        </group>
+                        <group>
+                            <field name="chofer_camion"/>
+                            <field name="patente_camion_tracto"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                       <field name="remolques_ids" mode="tree" nolabel="1"
+                              options="{'no_open':True,'no_create':1,'no_create_edit':1}">
+                            <tree create="0" edit="0">
+                                <field name="status_trailer_day"/>
+                                <field name="patente_remolque"/>
+                                <field name="modelo_remolque"/>
+                                <field name="dia_operacion"/>
+                                <field name="creador"/>
+                                <button name="action_update_fields" type="object"  icon="fa-refresh"
+                                    class="custom_identifier"/>
+                                <button name="action_asignar_remolque" type="object"  icon="fa-truck"
+                                    class="custom_identifier"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                     <group>
+                       <field name="asignar_remolque_id" mode="tree" nolabel="1"
+                              options="{'no_open':1,'no_create':1,'no_create_edit':1}">
+                            <tree create="0" edit="0" open="0" >
+                                <field name="dia_operacion" optional="show" />
+                                <field name="solicitud_despacho" optional="show" />
+                                <field name="patente_remolque" optional="show" />
+                                <field name="modelo_remolque" optional="show" />
+                                <field name="status_remolque" optional="show" />
+                                <field name="capacidad_carga" optional="show" />
+                                <field name="cantidad_despachar" optional="show" />
+                                <field name="cliente" optional="show" />
+                                <field name="pedido_venta" optional="hide" />
+                                <field name="orden_entrega" optional="hide" />
+                                <field name="asignada" optional="hide" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='asiganar_remolque']" position="attributes">
+                     <attribute name="attrs">{'invisible': [('mostrar_page', '=',False)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
