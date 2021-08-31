@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!--    <template id="custom_header" inherit_id="website.submenu" name="Dispatch Requests" active="True">-->
-    <!--        <xpath expr="//li[contains(@t-attf-class, 'dropdown')]" position="before">-->
-    <!--            <li id="my_dispatch" class="nav-item">-->
-    <!--                <a href="/dispatch" class="nav-link">-->
-    <!--                    Dispatch Requests-->
-    <!--                </a>-->
-    <!--            </li>-->
-    <!--        </xpath>-->
-    <!--    </template>-->
 
     <template id="dispatch_form" name="Dispatch Requests">
         <t t-call="website.layout">

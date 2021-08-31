@@ -16,7 +16,10 @@
     'version': '2.20210829',
 
     # any module necessary for this one to work correctly
-    'depends': ['website', 'sale_timesheet', 'sale_project', 'industry_fsm', 'sale_stock'],
+    'depends': [
+        'website', 'sale', 'portal',
+        'sale_timesheet', 'sale_project', 'sale_stock', 'industry_fsm'
+    ],
 
     # always loaded
     'data': [
@@ -25,7 +28,8 @@
         'views/templates.xml',
         'views/project_task_views.xml',
         'views/res_partner_views.xml',
-        'views/sale_order_views.xml'
+        'views/sale_order_views.xml',
+        'views/sale_portal_templates.xml'
 
     ],
 }
