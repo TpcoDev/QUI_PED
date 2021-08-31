@@ -93,10 +93,17 @@ class SaleOrder(models.Model):
         return super(SaleOrder, self)._action_confirm()
 
 
-class SaleOrdeLine(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
+
+    def _get_qty_procurement(self, previous_product_uom_qty=False):
+        self.ensure_one()
+
+        if self.env.context.get('dispatch_qty', False):
+            return self.env.context['dispatch_qty']
+        return super(SaleOrderLine, self)._get_qty_procurement(previous_product_uom_qty=previous_product_uom_qty)
 
     def _action_launch_stock_rule(self, previous_product_uom_qty=False):
         if self.env.context.get('no_create_picking', False) == True:
             return True
-        return super(SaleOrdeLine, self)._action_launch_stock_rule(previous_product_uom_qty)
+        return super(SaleOrderLine, self)._action_launch_stock_rule(previous_product_uom_qty)
