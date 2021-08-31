@@ -19,7 +19,7 @@
                             <span class='d-block d-md-none'>Ref.</span>
                         </th>
                         <th class="text-right">Orden de Compra del Cliente</th>
-                        <th class="text-right">Order Date</th>
+                        <th class="text-center">Order Date</th>
                         <th class="text-center"/>
                         <th class="text-right">Total</th>
                     </tr>
@@ -27,7 +27,7 @@
                 <t t-foreach="orders" t-as="order">
                     <tr>
                         <td><a t-att-href="order.get_portal_url()"><t t-esc="order.name"/></a></td>
-                        <td><t t-esc="order.client_order_ref"/></td>
+                        <td class="text-right"><t t-esc="order.client_order_ref"/></td>
                         <td class="text-right">
                             <span t-field="order.date_order" t-options="{'widget': 'date'}"/>&amp;nbsp;
                             <span class='d-none d-md-inline' t-field="order.date_order"
