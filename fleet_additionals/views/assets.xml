@@ -1,8 +1,8 @@
 <odoo>
-<!--    <template id="website_dispatch_requests_assets_frontend" inherit_id="website.assets_frontend"-->
-<!--              name="Dispatch Requests">-->
-<!--        <xpath expr="." position="inside">-->
-<!--            <script type="text/javascript" src="/website_dispatch_requests/static/src/js/main.js"></script>-->
-<!--        </xpath>-->
-<!--    </template>-->
+    <template id="fleet_additionals_assets_frontend" inherit_id="website.assets_frontend"
+              name="Fleet Additionals Requests">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/fleet_additionals/static/src/css/custom.css"/>
+        </xpath>
+    </template>
 </odoo>

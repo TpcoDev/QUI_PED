@@ -3,7 +3,7 @@ from odoo import fields, models, api
 
 class ReportProjectTaskPlanned(models.AbstractModel):
     _name = 'report.fleet_additionals.report_project_task_planned'
-    _description = 'Project task report with planned dispatches'
+    _description = 'Project task report without planned planning'
 
     @api.model
     def _get_report_values(self, docids, data=None):
