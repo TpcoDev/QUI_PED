@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <template id="dispatch_portal_my_home_menu_sale" inherit_id="sale.portal_my_home_menu_sale">
+        <xpath expr="//li[hasclass('breadcrumb-item')]//t[@t-esc='sale_order.name']" position="after">
+            <t t-esc="sale_order.client_order_ref"/>
+        </xpath>
+    </template>
+
+    <template id="dispatch_sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//div[@id='introduction']/h2/em" position="after">
+            <t t-esc="sale_order.client_order_ref"/>
+        </xpath>
+    </template>
+
     <template id="sale.portal_my_orders">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
@@ -28,7 +40,7 @@
                     <tr>
                         <td><a t-att-href="order.get_portal_url()"><t t-esc="order.name"/></a></td>
                         <td class="text-right"><t t-esc="order.client_order_ref"/></td>
-                        <td class="text-right">
+                        <td class="text-left">
                             <span t-field="order.date_order" t-options="{'widget': 'date'}"/>&amp;nbsp;
                             <span class='d-none d-md-inline' t-field="order.date_order"
                                   t-options="{'time_only': True}"/>
