@@ -7,8 +7,7 @@
                 <div class="container">
                     <div class="container oe_website_sale" style="margin: 22px;">
                         <div class="row justify-content-md-center">
-                            <div class="col-md-8 "
-                                 style="box-shadow: 0px 0px 2.82px 1.8px rgba(0,0,0,.24), 0px 0px 1.96px 0.04px rgba(0,0,0,.16);border-radius:4px; ma">
+                            <div class="col-12">
                                 <h2 class="mt16 mb-6"><center>Create a new Dispatch Resquests</center></h2>
                                 <div class="o_dispatch_form">
                                     <form action="/dispatch/validate" method="post" class="checkout_autoformat"

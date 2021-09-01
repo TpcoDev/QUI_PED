@@ -17,16 +17,30 @@ class ResPartner(models.Model):
         readonly=True
     )
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('parent_id', False):
+                parent_id = self.browse(vals['parent_id'])
+                vals.update({
+                    'lc_fecha_hora': parent_id.lc_fecha_hora,
+                    'lc_disponible': parent_id.lc_disponible
+                })
+        return super(ResPartner, self).create(vals_list)
+
     def write(self, vals):
-        if self.parent_id:
-            vals.update({
-                'lc_fecha_hora': self.parent_id.lc_fecha_hora,
-                'lc_disponible': self.parent_id.lc_disponible
-            })
+        lc_fecha_hora = self.lc_fecha_hora
+        lc_disponible = self.lc_disponible
+
+        if 'lc_fecha_hora' in vals:
+            lc_fecha_hora = vals['lc_fecha_hora']
+        if 'lc_disponible' in vals:
+            lc_disponible = vals['lc_disponible']
+
         if self.child_ids:
             self.child_ids.write({
-                'lc_fecha_hora': self.lc_fecha_hora,
-                'lc_disponible': self.lc_disponible
+                'lc_fecha_hora': lc_fecha_hora,
+                'lc_disponible': lc_disponible
             })
 
         return super(ResPartner, self).write(vals)
