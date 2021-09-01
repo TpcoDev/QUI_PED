@@ -1,0 +1,259 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fleet_additionals
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20210527\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-01 14:23+0000\n"
+"PO-Revision-Date: 2021-09-01 14:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__asignada
+msgid "Asignada"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__cantidad_despachar
+msgid "Cantidad a despachar"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__capacidad_carga
+#: model:ir.model.fields,field_description:fleet_additionals.field_fleet_vehicle__capacidad_carga
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__capacidad_carga
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__capacidad_carga
+msgid "Capacidad carga"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__chofer_camion
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__chofer_camion
+msgid "Chofer"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__cliente
+msgid "Cliente"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields.selection,name:fleet_additionals.selection__remolque_dia__status_trailer_day__completado
+msgid "Completado"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__create_uid
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__create_date
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__display_name
+#: model:ir.model.fields,field_description:fleet_additionals.field_fleet_vehicle__display_name
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__display_name
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__display_name
+#: model:ir.model.fields,field_description:fleet_additionals.field_report_fleet_additionals_report_project_task_planned__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: fleet_additionals
+#: model:ir.model.fields.selection,name:fleet_additionals.selection__remolque_dia__status_trailer_day__disponible
+msgid "Disponible"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__status
+msgid "Estado"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__status_trailer_day
+msgid "Estado del remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__status_remolque
+msgid "Estado remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__dia_operacion
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__dia_operacion
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__dia_operacion
+msgid "Fecha operación"
+msgstr ""
+
+#. module: fleet_additionals
+#: code:addons/fleet_additionals/models/res_partner.py:0
+#, python-format
+msgid "Fecha y hora LC"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__id
+#: model:ir.model.fields,field_description:fleet_additionals.field_fleet_vehicle__id
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__id
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__id
+#: model:ir.model.fields,field_description:fleet_additionals.field_report_fleet_additionals_report_project_task_planned__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque____last_update
+#: model:ir.model.fields,field_description:fleet_additionals.field_fleet_vehicle____last_update
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task____last_update
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia____last_update
+#: model:ir.model.fields,field_description:fleet_additionals.field_report_fleet_additionals_report_project_task_planned____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__write_uid
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__write_date
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields.selection,name:fleet_additionals.selection__remolque_dia__status_trailer_day__mantenimiento
+msgid "Mantenimiento"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__mostrar_page
+msgid "Mostrar Page"
+msgstr "Mostrar pestaña"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__name
+msgid "Nombre"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__modelo_remolque
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__modelo_remolque
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__modelo_remolque
+msgid "Nombre vehículo"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__orden_entrega
+msgid "Orden de entrega"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__patente_camion_tracto
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__patente_camion_tracto
+msgid "Patente Camion Tracto"
+msgstr "Patente Camión Tracto"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__patente_remolque
+msgid "Patente Remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__patente_remolque
+msgid "Patente del remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__patente_remolque
+msgid "Patente remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__pedido_venta
+msgid "Pedido de venta"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model,name:fleet_additionals.model_report_fleet_additionals_report_project_task_planned
+msgid "Project task report without planned planning"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.actions.act_window,name:fleet_additionals.remolque_dia_action
+#: model:ir.ui.menu,name:fleet_additionals.menu_remolque_dia
+#: model_terms:ir.ui.view,arch_db:fleet_additionals.remolque_dia_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_additionals.remolque_dia_view_search
+#: model_terms:ir.ui.view,arch_db:fleet_additionals.remolque_dia_view_tree
+msgid "Remolque Día"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__asignar_remolque_id
+#: model_terms:ir.ui.view,arch_db:fleet_additionals.asignar_remolque_view_form
+#: model_terms:ir.ui.view,arch_db:fleet_additionals.asignar_remolque_view_tree
+msgid "Remolque asignado"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_project_task__remolque_ids
+msgid "Remolques"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__creador
+msgid "Responsable"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_remolque_dia__rut_chofer_camion
+msgid "Rut Chofer"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__solicitud_despacho
+msgid "Solicitud de despacho"
+msgstr ""
+
+#. module: fleet_additionals
+#: code:addons/fleet_additionals/controllers/main.py:0
+#, python-format
+msgid "Some required fields are empty."
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model,name:fleet_additionals.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: fleet_additionals
+#: model:ir.model.fields,field_description:fleet_additionals.field_asignar_remolque__task_id
+msgid "Trea"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model,name:fleet_additionals.model_fleet_vehicle
+msgid "Vehicle"
+msgstr "Vehículo"
+
+#. module: fleet_additionals
+#: model:ir.model,name:fleet_additionals.model_asignar_remolque
+msgid "asignar_remolque"
+msgstr ""
+
+#. module: fleet_additionals
+#: model:ir.model,name:fleet_additionals.model_remolque_dia
+msgid "remolque_dia"
+msgstr ""
