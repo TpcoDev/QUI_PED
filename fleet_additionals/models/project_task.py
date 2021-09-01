@@ -21,7 +21,11 @@ class ProjectTask(models.Model):
     status = fields.Char('Estado')
     capacidad_carga = fields.Float('Capacidad carga', digits=(16, 3))
 
-    remolques_ids = fields.Many2many(comodel_name="remolque_dia", inverse_name="task_id", string="Remolques")
+    #remolque_ids = fields.Many2many(comodel_name="remolque_dia", inverse_name="task_id", string="Remolques")
+
+    #remolque_ids = fields.Many2many(comodel_name="remolque_dia",string='Remolques')
+
+    remolque_ids = fields.One2many(comodel_name="remolque_dia",inverse_name="task_id", string='Remolques')
 
     asignar_remolque_id = fields.One2many(comodel_name="asignar_remolque", inverse_name="task_id", string="Remolque asignado")
 
@@ -38,14 +42,14 @@ class ProjectTask(models.Model):
             remolques = remolques.search([('dia_operacion','=',fecha)])
             for remolque in remolques:
                 ids.append(remolque.id)
-            self.remolques_ids = [(6, 0, ids)]
+            self.remolque_ids = [(6, 0, ids)]
 
     @api.depends('stage_id','planification','partner_id','picking_id')
     def _compute_mostrar_page(self):
         res = False
         for task in self:
             if task.stage_id:
-                if (task.stage_id.name == 'Nuevo' or task.stage_id.name == 'New')\
+                if (task.stage_id.name == 'Solicitado' or task.stage_id.name == 'New')\
                         and task.planification == 'planifica' and \
                         task.partner_id:
                     res = True

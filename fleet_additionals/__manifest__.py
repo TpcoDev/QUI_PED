@@ -20,7 +20,7 @@
     
     # always loaded
     'data': [
-        #'views/assets.xml',
+
         'security/ir.model.access.csv',
         'views/fleet_vehicle_views.xml',
         'views/remolque_dia_views.xml',
