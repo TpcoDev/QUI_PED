@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-13 16:18+0000\n"
-"PO-Revision-Date: 2021-08-13 12:22-0400\n"
+"POT-Creation-Date: 2021-09-01 03:20+0000\n"
+"PO-Revision-Date: 2021-08-31 23:28-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,32 @@ msgid ""
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
+" * Borrador: La transferencia aún no está confirmada. La reserva no "
+"aplica.\n"
+" * Esperando otra operación: Esta transferencia está esperando otra "
+"operación antes de estar lista.\n"
+" * En espera: El traslado está a la espera de la disponibilidad de "
+"algunos productos.\n"
+"a) La política de envío es \"Lo antes posible\": no se puede reservar "
+"ningún producto.\n"
+"b) La política de envío es \"Cuando todos los productos estén listos\": "
+"no todos los productos podrían reservarse.\n"
+" * Listo: La transferencia está lista para ser procesada.\n"
+"a) La política de envío es \"Lo antes posible\": se ha reservado al menos "
+"un producto.\n"
+"b) La política de envío es \"Cuando todos los productos estén listos\": "
+"todos los productos han sido reservados.\n"
+" * Hecho: La transferencia ha sido procesada.\n"
+" * Cancelado: La transferencia ha sido cancelada."
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid ""
+"<strong>😱</strong> La cantidad solicitada es incorrecta. Revíselo\n"
+"                                            por favor."
+msgstr ""
+"<strong>😱</strong> La cantidad solicitada es incorrecta. Revíselo\n"
+"                                            por favor."
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
@@ -46,8 +72,40 @@ msgid "Albarán"
 msgstr ""
 
 #. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__sale_order__lc_verificacion__aprobado
+#, python-format
+msgid "Aprobado"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.view_task_form2_inherit
+msgid "Asigna Camión"
+msgstr ""
+
+#. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
 msgid "Cantidad Solicitada"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__cantidad_despachar
+msgid "Cantidad a despachar"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.sale_order_form_inherit
+msgid "Cantidad reservada"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__codigo_sap
+msgid "Cod SAP"
 msgstr ""
 
 #. module: website_dispatch_requests
@@ -56,9 +114,19 @@ msgid "Cod SAP Cliente"
 msgstr ""
 
 #. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.sale_order_form_inherit
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: website_dispatch_requests
 #: model:ir.model,name:website_dispatch_requests.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "Crear Solicitud"
+msgstr ""
 
 #. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
@@ -69,24 +137,45 @@ msgstr "Crear una Solicitud de Despacho"
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__company_currency
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__company_currency
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__company_currency
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__company_currency
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__company_currency
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: website_dispatch_requests
-#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.custom_header
-msgid "Dispatch Requests"
-msgstr "Solicitud de Despacho"
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__partner_codigo_sap
+#, python-format
+msgid "Código SAP"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid "DD-MM-YYYY"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__move_ids
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.sale_order_form_inherit
+#, python-format
+msgid "Detalle Ordenes Pendientes"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/controllers/sale_portal.py:0
+#, python-format
+msgid "Dispatch State"
+msgstr "Estado de solicitud"
 
 #. module: website_dispatch_requests
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__display_name
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__display_name
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__display_name
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
-
-#. module: website_dispatch_requests
-#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
-msgid "Enviar"
-msgstr ""
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
@@ -96,18 +185,25 @@ msgid "Estado de OE"
 msgstr ""
 
 #. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__d_state
+msgid "Estado de despacho"
+msgstr ""
+
+#. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
 msgid ""
-"Fecha de despacho solicitada\n"
-"                                                *"
+"Fecha de despacho\n"
+"                                                    solicitada"
 msgstr ""
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
 #: code:addons/website_dispatch_requests/models/res_partner.py:0
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__lc_fecha_hora
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__lc_fecha_hora
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__lc_fecha_hora
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__lc_fecha_hora
 #, python-format
 msgid "Fecha y hora LC"
 msgstr ""
@@ -120,17 +216,34 @@ msgid "Fecha y hora Planificación"
 msgstr ""
 
 #. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__lc_fecha_hora_verificacion
+#, python-format
+msgid "Fecha y hora Verificación"
+msgstr ""
+
+#. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
 msgid ""
 "Horario de recepción\n"
-"                                                posibles"
+"                                                    posibles"
 msgstr ""
 
 #. module: website_dispatch_requests
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__id
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__id
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__id
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order_line__id
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__id
 msgid "ID"
 msgstr "ID (identificación)"
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,help:website_dispatch_requests.field_project_task__partner_cod_sap
+#: model:ir.model.fields,help:website_dispatch_requests.field_sale_order__codigo_sap
+#: model:ir.model.fields,help:website_dispatch_requests.field_stock_move__partner_codigo_sap
+msgid "Identification Number for selected type"
+msgstr ""
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
@@ -142,13 +255,24 @@ msgstr ""
 #. module: website_dispatch_requests
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task____last_update
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner____last_update
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order____last_update
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move____last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: website_dispatch_requests
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_partner__lc_disponible
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_res_users__lc_disponible
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__lc_disponible
 msgid "Lc Disponible"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__sale_order__lc_verificacion__no_aprueba
+#, python-format
+msgid "No Aprueba"
 msgstr ""
 
 #. module: website_dispatch_requests
@@ -159,8 +283,35 @@ msgid "No Planifica"
 msgstr ""
 
 #. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__partner_name
+#, python-format
+msgid "Nombre del cliente"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__dispatch_name
+msgid "Nombre del pedido"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__sale_order_id
+#, python-format
+msgid "Orden"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/controllers/sale_portal.py:0
+#, python-format
+msgid "Order Date"
+msgstr "Fecha de la Orden"
+
+#. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
-msgid "Pedidos de Venta"
+msgid ""
+"Pedidos de\n"
+"                                                    Venta"
 msgstr ""
 
 #. module: website_dispatch_requests
@@ -170,9 +321,18 @@ msgstr ""
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:website_dispatch_requests.selection__project_task__planification__pendiente
+#: model:ir.model.fields.selection,name:website_dispatch_requests.selection__sale_order__lc_verificacion__pendiente
 #, python-format
 msgid "Pendiente"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
+msgid ""
+"Pendiente por\n"
+"                                                    Solicitar"
 msgstr ""
 
 #. module: website_dispatch_requests
@@ -185,6 +345,13 @@ msgstr ""
 #. module: website_dispatch_requests
 #: model:ir.model.fields,field_description:website_dispatch_requests.field_project_task__planification
 msgid "Planificación"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__line_price_unit
+#, python-format
+msgid "Precio unitario de venta"
 msgstr ""
 
 #. module: website_dispatch_requests
@@ -208,10 +375,49 @@ msgid "Quantity that has already been reserved for this move"
 msgstr "Cantidad ha sido reservada por este movimiento"
 
 #. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/controllers/sale_portal.py:0
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model,name:website_dispatch_requests.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: website_dispatch_requests
+#: model:ir.model,name:website_dispatch_requests.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/controllers/main.py:0
 #, python-format
 msgid "Some required fields are empty."
-msgstr "Algunos campos requeridos están vacíos."
+msgstr "Algunos campos obligatorios están vacíos"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/controllers/sale_portal.py:0
+#, python-format
+msgid "Stage"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model:ir.model,name:website_dispatch_requests.model_stock_move
+msgid "Stock Move"
+msgstr "Moviemiento de stock"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#, python-format
+msgid "Su solicitud de despacho %s ha sido enviada con exito"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/project_task.py:0
+#, python-format
+msgid "Tarea creada"
+msgstr ""
 
 #. module: website_dispatch_requests
 #: model:ir.model,name:website_dispatch_requests.model_project_task
@@ -226,23 +432,60 @@ msgstr "Tarea creada"
 
 #. module: website_dispatch_requests
 #: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
-msgid "Task Title *"
+msgid "Task Title"
 msgstr "Título Solicitud"
 
 #. module: website_dispatch_requests
-#: model:ir.model.fields,help:website_dispatch_requests.field_project_task__partner_cod_sap
-msgid ""
-"The Tax Identification Number. Complete it if the contact is subjected to "
-"government taxes. Used in some legal statements."
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.sale_order_form_inherit
+msgid "Total Demandada"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__total_demanded
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__total_demanded
+#, python-format
+msgid "Total Demandado"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.sale_order_form_inherit
+msgid "Total Reservada"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: code:addons/website_dispatch_requests/models/stock_move.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__total_reserved
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_stock_move__total_reserved
+#, python-format
+msgid "Total Reservado"
+msgstr ""
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#: model:ir.model.fields,field_description:website_dispatch_requests.field_sale_order__lc_verificacion
+#, python-format
+msgid "Verificación LC"
 msgstr ""
 
 #. module: website_dispatch_requests
 #: code:addons/website_dispatch_requests/models/project_task.py:0
 #, python-format
-msgid "Ticket has been created successfully. Your Task Number is %s"
-msgstr "Tarea ha sido creada satisfactoriamente, la tarea es %s"
+msgid ""
+"You cannot link the order item %(order_id)s - %(product_id)s to this task "
+"because it is a re-invoiced expense."
+msgstr ""
 
 #. module: website_dispatch_requests
-#: model_terms:ir.ui.view,arch_db:website_dispatch_requests.dispatch_form
-msgid "YYYY-MM-DD"
-msgstr ""
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#, python-format
+msgid "closed"
+msgstr "cerrado"
+
+#. module: website_dispatch_requests
+#: code:addons/website_dispatch_requests/models/sale_order.py:0
+#, python-format
+msgid "opened"
+msgstr "abierta"
