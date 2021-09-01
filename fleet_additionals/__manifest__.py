@@ -13,14 +13,14 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Fleet',
-    'version': '1.0.0',
+    'version': '1.0.1',
     
     # any module necessary for this one to work correctly
     'depends': ['fleet', 'industry_fsm', 'website_dispatch_requests'],
     
     # always loaded
     'data': [
-        'views/assets.xml',
+        #'views/assets.xml',
         'security/ir.model.access.csv',
         'views/fleet_vehicle_views.xml',
         'views/remolque_dia_views.xml',
