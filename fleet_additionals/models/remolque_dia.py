@@ -37,7 +37,6 @@ class RemolqueDia(models.Model):
     def action_update_fields(self):
         for remolque in self:
             if remolque.task_id:
-                print(remolque.task_id)
                 remolque.task_id.dia_operacion = remolque.dia_operacion
                 remolque.task_id.patente_remolque = remolque.patente_remolque
                 remolque.task_id.modelo_remolque = remolque.modelo_remolque
@@ -70,9 +69,8 @@ class RemolqueDia(models.Model):
                     'orden_entrega':  task.picking_id.id if task.picking_id else False,
                     'asignada':  task.user_id.id if task.user_id else False
                 })
-
+                ids.append(res.id)
         remolque.task_id.asignar_remolque_id = [(6, 0, ids)]
-
 
     def name_get(self):
         if self._context is None:
