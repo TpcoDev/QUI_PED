@@ -28,7 +28,9 @@ class RemolqueDia(models.Model):
     capacidad_carga = fields.Float('Capacidad carga', digits=(16, 3))
 
     def action_update_fields(self):
-        if self._context.get('task_id'):
+        if not self._context.get('task_id'):
+            self.action_asignar_remolque()
+        else:
             # task = self.env['project.task'].search([('id', '=', int(self._context.get('task_id')))])
             task = self.env['project.task'].browse(int(self._context.get('task_id')))
             if task:
@@ -40,36 +42,35 @@ class RemolqueDia(models.Model):
                     task.patente_camion_tracto = remolque.patente_camion_tracto
                     task.status = dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
                                        ['status_trailer_day']['selection'])[remolque.status_trailer_day]
-        else:
-            self.action_update_fields()
 
     def action_asignar_remolque(self):
         ids = []
         remolque_asignado = self.env['asignar_remolque']
-        task = self.env['project.task'].search([('id', '=', int(self._context.get('task_id')))])
+        # task = self.env['project.task'].search([('id', '=', int(self._context.get('task_id')))])
+        task = self.env['project.task'].browse(int(self._context.get('task_id')))
         if task:
-            for remolque in self:
-                if remolque.patente_remolque != task.patente_remolque:
-                    raise exceptions.ValidationError(
-                        u'El remolque que intenta asignar no es el mismo del cual visualizó la información.')
-                tasks = task.search(
-                    [('dia_operacion', '=', task.dia_operacion), ('patente_remolque', '=', task.patente_remolque)])
+            # for remolque in self:
+            # if remolque.patente_remolque != task.patente_remolque:
+            #     raise exceptions.ValidationError(
+            #         u'El remolque que intenta asignar no es el mismo del cual visualizó la información.')
+            tasks = task.search(
+                [('dia_operacion', '=', task.dia_operacion), ('patente_remolque', '=', task.patente_remolque)])
 
-                for tarea in tasks:
-                    res = remolque_asignado.create({
-                        'dia_operacion': tarea.dia_operacion,
-                        'solicitud_despacho': tarea.name,
-                        'patente_remolque': tarea.patente_remolque,
-                        'modelo_remolque': tarea.modelo_remolque,
-                        'status_remolque': tarea.status,
-                        'capacidad_carga': tarea.capacidad_carga,
-                        'cantidad_despachar': tarea.cantidad_despachar,
-                        'cliente': tarea.partner_id.id if tarea.partner_id else False,
-                        'pedido_venta': tarea.sale_order_id.id if tarea.sale_order_id else False,
-                        'orden_entrega': tarea.picking_id.id if tarea.picking_id else False,
-                        'asignada': tarea.user_id.id if tarea.user_id else False
-                    })
-                    ids.append(res.id)
+            for tarea in tasks:
+                res = remolque_asignado.create({
+                    'dia_operacion': tarea.dia_operacion,
+                    'solicitud_despacho': tarea.name,
+                    'patente_remolque': tarea.patente_remolque,
+                    'modelo_remolque': tarea.modelo_remolque,
+                    'status_remolque': tarea.status,
+                    'capacidad_carga': tarea.capacidad_carga,
+                    'cantidad_despachar': tarea.cantidad_despachar,
+                    'cliente': tarea.partner_id.id if tarea.partner_id else False,
+                    'pedido_venta': tarea.sale_order_id.id if tarea.sale_order_id else False,
+                    'orden_entrega': tarea.picking_id.id if tarea.picking_id else False,
+                    'asignada': tarea.user_id.id if tarea.user_id else False
+                })
+                ids.append(res.id)
         task.asignar_remolque_id = [(6, 0, ids)]
 
     def name_get(self):
