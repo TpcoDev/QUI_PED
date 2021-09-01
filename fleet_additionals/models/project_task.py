@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from dateutil.relativedelta import relativedelta
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, exceptions
 from odoo.exceptions import ValidationError
-from datetime import datetime, timedelta,date
+from datetime import datetime, timedelta, date
 import logging
 import pytz
 
@@ -21,35 +21,41 @@ class ProjectTask(models.Model):
     status = fields.Char('Estado')
     capacidad_carga = fields.Float('Capacidad carga', digits=(16, 3))
 
-    #remolque_ids = fields.Many2many(comodel_name="remolque_dia", inverse_name="task_id", string="Remolques")
+    remolque_ids = fields.Many2many(comodel_name="remolque_dia", string='Remolques')
 
-    #remolque_ids = fields.Many2many(comodel_name="remolque_dia",string='Remolques')
+    # remolque_ids = fields.One2many(comodel_name="remolque_dia",inverse_name="task_id", string='Remolques')
 
-    remolque_ids = fields.One2many(comodel_name="remolque_dia",inverse_name="task_id", string='Remolques')
-
-    asignar_remolque_id = fields.One2many(comodel_name="asignar_remolque", inverse_name="task_id", string="Remolque asignado")
+    asignar_remolque_id = fields.One2many(comodel_name="asignar_remolque", inverse_name="task_id",
+                                          string="Remolque asignado")
 
     mostrar_page = fields.Boolean(compute='_compute_mostrar_page')
 
-    @api.onchange('planned_date_begin','stage_id')
+    @api.onchange('planned_date_begin', 'stage_id')
     def _onchange_planned_date_begin(self):
         ids = []
         remolques = self.env['remolque_dia']
-        if self.planned_date_begin:
-            #fecha = datetime.strptime(str(self.planned_date_begin),'%Y-%m-%d %H:%M:%S').strftime("%Y-%m-%d")
-            fecha = fields.Datetime.context_timestamp(self, datetime.strptime(str(self.planned_date_begin),
-                                                                                  '%Y-%m-%d %H:%M:%S')).strftime("%Y-%m-%d")
-            remolques = remolques.search([('dia_operacion','=',fecha)])
-            for remolque in remolques:
-                ids.append(remolque.id)
-            self.remolque_ids = [(6, 0, ids)]
+        for task in self:
+            if task.planned_date_begin:
+                # fecha = datetime.strptime(str(self.planned_date_begin),'%Y-%m-%d %H:%M:%S').strftime("%Y-%m-%d")
+                fecha = fields.Datetime.context_timestamp(self, datetime.strptime(str(task.planned_date_begin),
+                                                                                  '%Y-%m-%d %H:%M:%S')).strftime(
+                    "%Y-%m-%d")
+                remolques = remolques.search([('dia_operacion', '=', fecha)])
+                for remolque in remolques:
+                    # if type(task.id.origin) == int:
+                    #     remolque.task_id = task.id.origin
+                    ids.append(remolque.id)
+                    # else:
+                    #     raise exceptions.ValidationError(u'La solicitud debe estar guardada.')
 
-    @api.depends('stage_id','planification','partner_id','picking_id')
+            task.remolque_ids = [(6, 0, ids)]
+
+    @api.depends('stage_id', 'planification', 'partner_id', 'picking_id')
     def _compute_mostrar_page(self):
         res = False
         for task in self:
             if task.stage_id:
-                if (task.stage_id.name == 'Solicitado' or task.stage_id.name == 'New')\
+                if (task.stage_id.name == 'Solicitado' or task.stage_id.name == 'New') \
                         and task.planification == 'planifica' and \
                         task.partner_id:
                     res = True
@@ -65,16 +71,16 @@ class ProjectTask(models.Model):
                 self.cargar_remolques_asignados()
             task.mostrar_page = res
 
-
     def cargar_remolques_asignados(self):
         ids = []
         remolque_asignado = self.env['asignar_remolque']
         tasks = self.env['project.task']
         for tarea in self:
             if tarea.dia_operacion and tarea.patente_remolque:
-                tasks = tasks.search([('dia_operacion','=',tarea.dia_operacion),('patente_remolque','=',tarea.patente_remolque)])
+                tasks = tasks.search(
+                    [('dia_operacion', '=', tarea.dia_operacion), ('patente_remolque', '=', tarea.patente_remolque)])
                 for task in tasks:
-                    res=remolque_asignado.create({
+                    res = remolque_asignado.create({
                         'dia_operacion': task.dia_operacion,
                         'solicitud_despacho': task.name,
                         'patente_remolque': task.patente_remolque,
@@ -84,10 +90,8 @@ class ProjectTask(models.Model):
                         'cantidad_despachar': task.cantidad_despachar,
                         'cliente': task.partner_id.id if task.partner_id else False,
                         'pedido_venta': task.sale_order_id.id if task.sale_order_id else False,
-                        'orden_entrega':  task.picking_id.id if task.picking_id else False,
-                        'asignada':  task.user_id.id if task.user_id else False
+                        'orden_entrega': task.picking_id.id if task.picking_id else False,
+                        'asignada': task.user_id.id if task.user_id else False
                     })
                     ids.append(res.id)
         tarea.asignar_remolque_id = [(6, 0, ids)]
-
-
