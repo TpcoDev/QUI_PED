@@ -32,7 +32,7 @@
         </field>
     </record>
 
-        <record id='remolque_dia_view_tree' model='ir.ui.view'>
+        <record id='asignar_remolque_view_tree' model='ir.ui.view'>
         <field name="name">asignar.remolque.tree</field>
         <field name="model">asignar_remolque</field>
         <field name="arch" type="xml">

@@ -29,7 +29,8 @@ class RemolqueDia(models.Model):
 
     def action_update_fields(self):
         if self._context.get('task_id'):
-            task = self.env['project.task'].search([('id', '=', int(self._context.get('task_id')))])
+            # task = self.env['project.task'].search([('id', '=', int(self._context.get('task_id')))])
+            task = self.env['project.task'].browse(int(self._context.get('task_id')))
             if task:
                 for remolque in self:
                     task.dia_operacion = remolque.dia_operacion
