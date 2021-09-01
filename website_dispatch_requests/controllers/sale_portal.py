@@ -24,11 +24,11 @@ class CustomerPortal(CustomerPortal):
         domain = [('state', 'in', ['sale', 'done'])]
         if partner.parent_id:
             domain.append(
-                ('message_partner_ids', 'child_of', [partner.id]),
+                ('partner_id', 'child_of', [partner.id]),
             )
         else:
             domain = [
-                ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
+                ('codigo_sap', '=', [partner.vat]),
             ]
 
         searchbar_sortings = {
