@@ -37,10 +37,11 @@ class ResPartner(models.Model):
         if 'lc_disponible' in vals:
             lc_disponible = vals['lc_disponible']
 
-        if self.child_ids:
-            self.child_ids.write({
-                'lc_fecha_hora': lc_fecha_hora,
-                'lc_disponible': lc_disponible
-            })
+        if vals.get('lc_fecha_hora') or vals.get('lc_disponible'):
+            if self.child_ids:
+                self.child_ids.write({
+                    'lc_fecha_hora': lc_fecha_hora,
+                    'lc_disponible': lc_disponible
+                })
 
         return super(ResPartner, self).write(vals)
