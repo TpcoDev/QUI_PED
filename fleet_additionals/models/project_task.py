@@ -69,6 +69,8 @@ class ProjectTask(models.Model):
                         res = False
             if len(task.asignar_remolque_id) > 0:
                 self.cargar_remolques_asignados()
+            if task.planned_date_begin:
+                self._onchange_planned_date_begin()
             task.mostrar_page = res
 
     def cargar_remolques_asignados(self):
