@@ -9,6 +9,8 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    d_state = fields.Char(compute='_search_available_orders', string='Estado de despacho')
+
     dispatch_name = fields.Char(compute='_compute_dispatch_name', string='Nombre del pedido')
     codigo_sap = fields.Char(related='partner_id.vat', string='Cod SAP')
     lc_verificacion = fields.Selection(
@@ -34,6 +36,12 @@ class SaleOrder(models.Model):
                                      currency_field='company_currency')
     total_demanded = fields.Monetary(compute='_compute_total', string=_('Total Demandado'),
                                      currency_field='company_currency')
+
+    @api.depends('order_line')
+    def _search_available_orders(self):
+        for rec in self:
+            lines = rec.order_line.filtered(lambda r: r.state == 'sale' and r.qty_delivered < r.product_uom_qty)
+            rec.d_state = _('opened') if len(lines) > 0 else _('closed')
 
     @api.depends('move_ids.reserved_availability', 'move_ids.product_uom_qty', 'move_ids.line_price_unit')
     def _compute_total(self):
