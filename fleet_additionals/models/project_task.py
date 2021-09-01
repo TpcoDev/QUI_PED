@@ -67,7 +67,7 @@ class ProjectTask(models.Model):
                         res = True
                     else:
                         res = False
-            if res and len(task.asignar_remolque_id) > 0:
+            if len(task.asignar_remolque_id) > 0:
                 self.cargar_remolques_asignados()
             task.mostrar_page = res
 
