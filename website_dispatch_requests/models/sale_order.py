@@ -41,7 +41,7 @@ class SaleOrder(models.Model):
     def _search_available_orders(self):
         for rec in self:
             lines = rec.order_line.filtered(lambda r: r.state == 'sale' and r.qty_delivered < r.product_uom_qty)
-            rec.d_state = _('open') if len(lines) > 0 else _('close')
+            rec.d_state = _('opened') if len(lines) > 0 else _('closed')
 
     @api.depends('move_ids.reserved_availability', 'move_ids.product_uom_qty', 'move_ids.line_price_unit')
     def _compute_total(self):
