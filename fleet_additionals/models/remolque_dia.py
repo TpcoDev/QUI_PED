@@ -40,6 +40,8 @@ class RemolqueDia(models.Model):
                     task.patente_camion_tracto = remolque.patente_camion_tracto
                     task.status = dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
                                        ['status_trailer_day']['selection'])[remolque.status_trailer_day]
+        else:
+            self.action_update_fields()
 
     def action_asignar_remolque(self):
         ids = []
