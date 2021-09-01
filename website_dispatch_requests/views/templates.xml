@@ -24,44 +24,47 @@
                                             </button>
                                         </div>
                                         <div class="form-row">
-                                            <div t-attf-class="form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
+                                            <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
                                                        t-att-readonly="'1'"
                                                        t-att-value="'task_title' in checkout and checkout['task_title']"
                                                        t-attf-class="form-control #{error.get('task_title') and 'is-invalid' or ''}"/>
                                             </div>
+                                            <div class="row">
 
-                                            <div t-attf-class="form-group #{error.get('dispatch_date') and 'o_has_error' or ''} col-6"
-                                                 id="div_email">
-                                                <label class="control-label" for="email">Fecha de despacho
-                                                    solicitada</label>
-                                                <div class="input-group date" id="datetimepicker4"
-                                                     data-target-input="nearest">
-                                                    <input type="text" name="dispatch_date"
-                                                           t-att-value="'dispatch_date' in checkout and checkout['dispatch_date']"
-                                                           t-attf-class="form-control datetimepicker-input #{error.get('dispatch_date') and 'is-invalid' or ''}"
-                                                           placeholder="DD-MM-YYYY"
-                                                           data-date-format="DD-MM-YYYY"
-                                                           data-target="#datetimepicker4"/>
-                                                    <div class="input-group-append" data-target="#datetimepicker4"
-                                                         data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><i
-                                                                class="fa fa-calendar"></i>
+
+                                                <div t-attf-class="form-group #{error.get('dispatch_date') and 'o_has_error' or ''} col-6"
+                                                     id="div_email">
+                                                    <label class="control-label" for="email">Fecha de despacho
+                                                        solicitada</label>
+                                                    <div class="input-group date" id="datetimepicker4"
+                                                         data-target-input="nearest">
+                                                        <input type="text" name="dispatch_date"
+                                                               t-att-value="'dispatch_date' in checkout and checkout['dispatch_date']"
+                                                               t-attf-class="form-control datetimepicker-input #{error.get('dispatch_date') and 'is-invalid' or ''}"
+                                                               placeholder="DD-MM-YYYY"
+                                                               data-date-format="DD-MM-YYYY"
+                                                               data-target="#datetimepicker4"/>
+                                                        <div class="input-group-append" data-target="#datetimepicker4"
+                                                             data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i
+                                                                    class="fa fa-calendar"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div t-attf-class="form-group #{error.get('horarios_recepcion') and 'o_has_error' or ''} col-6 div_horarios_recepcion">
+                                                    <label class="control-label" for="name">Horario de recepción
+                                                        posibles</label>
+                                                    <input type="text" name="horarios_recepcion"
+                                                           t-att-value="'horarios_recepcion' in checkout and checkout['horarios_recepcion']"
+                                                           t-attf-class="form-control #{error.get('horarios_recepcion') and 'is-invalid' or ''}"/>
+                                                </div>
                                             </div>
 
-                                            <div t-attf-class="form-group #{error.get('horarios_recepcion') and 'o_has_error' or ''} col-6 div_horarios_recepcion">
-                                                <label class="control-label" for="name">Horario de recepción
-                                                    posibles</label>
-                                                <input type="text" name="horarios_recepcion"
-                                                       t-att-value="'horarios_recepcion' in checkout and checkout['horarios_recepcion']"
-                                                       t-attf-class="form-control #{error.get('horarios_recepcion') and 'is-invalid' or ''}"/>
-                                            </div>
-
-                                            <div t-attf-class="form-group #{error.get('sale_order_id') and 'o_has_error' or ''} col-12 div_order">
+                                            <div t-attf-class="row form-group #{error.get('sale_order_id') and 'o_has_error' or ''} col-12 div_order">
                                                 <label class="control-label" for="sale_order_id">Pedidos de
                                                     Venta</label>
                                                 <select id="sale_order_id" name="sale_order_id"
@@ -76,7 +79,7 @@
                                                 </select>
                                             </div>
 
-                                            <div t-attf-class="form-group #{error.get('line_id') and 'o_has_error' or ''} col-12 div_product">
+                                            <div t-attf-class="row form-group #{error.get('line_id') and 'o_has_error' or ''} col-12 div_product">
                                                 <label class="control-label" for="line_id">Producto del Pedido</label>
                                                 <select id="line_id" name="line_id" data-init="1"
                                                         t-attf-class="form-control #{error.get('line_id') and 'is-invalid' or ''}">
@@ -91,20 +94,22 @@
 
                                                 </select>
                                             </div>
-
-                                            <div t-attf-class="form-group #{error.get('cantidad') and 'o_has_error' or ''} col-6 div_cantidad">
-                                                <label class="control-label" for="cantidad">Cantidad Solicitada</label>
-                                                <input type="number" name="cantidad"
-                                                       t-attf-class="form-control #{error.get('cantidad') and 'is-invalid' or ''}"
-                                                       t-att-value="'cantidad' in checkout and checkout['cantidad']"/>
-                                            </div>
-                                            <div class="col-6">
-                                                <label class="control-label" for="cantidad">Pendiente por
-                                                    Solicitar</label>
-                                                <input type="number" name="cantidad_pendiente"
-                                                       class="form-control"
-                                                       t-att-readonly="'1'"
-                                                       t-att-value="'cantidad_pendiente' in checkout and checkout['cantidad_pendiente']"/>
+                                            <div class="row">
+                                                <div t-attf-class="form-group #{error.get('cantidad') and 'o_has_error' or ''} col-6 div_cantidad">
+                                                    <label class="control-label" for="cantidad">Cantidad
+                                                        Solicitada</label>
+                                                    <input type="number" name="cantidad"
+                                                           t-attf-class="form-control #{error.get('cantidad') and 'is-invalid' or ''}"
+                                                           t-att-value="'cantidad' in checkout and checkout['cantidad']"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="control-label" for="cantidad">Pendiente por
+                                                        Solicitar</label>
+                                                    <input type="number" name="cantidad_pendiente"
+                                                           class="form-control"
+                                                           t-att-readonly="'1'"
+                                                           t-att-value="'cantidad_pendiente' in checkout and checkout['cantidad_pendiente']"/>
+                                                </div>
                                             </div>
 
                                         </div>
