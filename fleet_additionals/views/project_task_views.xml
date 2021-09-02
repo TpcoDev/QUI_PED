@@ -33,7 +33,7 @@
 
                     <field name="remolque_ids" nolabel="1" domain="[('dia_operacion','=',planned_date_begin),('status_trailer_day','=','disponible')]"
                            context="{'task_id': id,'asignar_remolque': True}" create="false" delete="false">
-                            <tree create="false" delete="false" limit="10" >
+                            <tree create="false" delete="false" limit="5" >
                                 <field name="id" invisible="1" />
                                 <field name="status_trailer_day"/>
                                 <field name="patente_remolque" />
