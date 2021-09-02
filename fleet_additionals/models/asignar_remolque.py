@@ -25,7 +25,7 @@ class AsignarRemolque(models.Model):
 
     task_id = fields.Many2one(
         comodel_name='project.task',
-        string=u'Proyecto',
+        string=u'Trea',
         ondelete='cascade',
         index=True,
         required=False)

@@ -10,61 +10,66 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='asiganar_remolque']/group" position="after">
-                    <group>
+                    <group string="Remolque asignado">
                         <group>
                             <field name="mostrar_page" invisible="1"/>
-                            <field name="dia_operacion"/>
-                            <field name="patente_remolque"/>
-                            <field name="modelo_remolque"/>
+                            <field name="dia_operacion" readonly="1"/>
+                            <field name="patente_remolque" readonly="1"/>
+                            <field name="modelo_remolque" readonly="1"/>
                         </group>
                         <group>
                             <field name="capacidad_carga" invisible="1"/>
-                            <field name="chofer_camion"/>
-                            <field name="patente_camion_tracto"/>
-                            <field name="status"/>
+                            <field name="chofer_camion" attrs="{'readonly': [('patente_remolque', '=', False)]}"/>
+                            <field name="patente_camion_tracto" readonly="1"/>
+                            <field name="status" readonly="1" />
+                        </group>
+                        <group>
+                            <button name="desasignar_remolque" type="object" class="oe_highlight"
+                                    attrs="{'invisible': [('patente_remolque', '=', False)]}" string="Cancelar asignacion"/>
                         </group>
                     </group>
 
-                    <field name="remolque_ids" nolabel="1" domain="[('dia_operacion','=',planned_date_begin)]"
-                           options="{'no_open':True,'no_create':1,'no_create_edit':1}" context="{'task_id': id}">
-                        <tree create="0" edit="0" delete="0">
-                            <field name="id" invisible="1"/>
-                            <field name="status_trailer_day"/>
-                            <field name="patente_remolque"/>
-                            <field name="modelo_remolque"/>
-                            <field name="capacidad_carga"/>
-                            <field name="dia_operacion"/>
-                            <field name="creador"/>
-                            <button name="action_update_fields" type="object" icon="fa-refresh"
-                                    class="custom_identifier"/>
-                            <button name="action_asignar_remolque" type="object" icon="fa-truck"
-                                    class="custom_identifier"/>
-                        </tree>
-                    </field>
+
+                    <field name="remolque_ids" nolabel="1" domain="[('dia_operacion','=',planned_date_begin),('status_trailer_day','=','disponible')]"
+                           context="{'task_id': id}" create="false" delete="false">
+                            <tree create="false" limit="10000">
+                                <field name="id" invisible="1" />
+                                <field name="status_trailer_day"/>
+                                <field name="patente_remolque" />
+                                <field name="modelo_remolque"/>
+                                <field name="capacidad_carga" />
+                                <field name="dia_operacion"/>
+                                <field name="creador"/>
+                                <button name="action_update_fields" type="object"  icon="fa-pencil"
+                                    class="custom_identifier" title="Asignar remolque"/>
+                                <button name="action_asignar_remolque" type="object"  icon="fa-truck"
+                                    class="custom_identifier" title="Ver detalles"/>
+                            </tree>
+                        </field>
 
                     <field name="asignar_remolque_id" force_save="1" mode="tree" nolabel="1" class="custom_class"
-                           options="{'no_open':1,'no_create':1,'no_create_edit':1}">
-                        <tree create="0" edit="0" open="0" delete="0">
-                            <field name="dia_operacion" optional="show"/>
-                            <field name="solicitud_despacho" optional="show"/>
-                            <field name="patente_remolque" optional="show"/>
-                            <field name="modelo_remolque" optional="show"/>
-                            <field name="status_remolque" optional="show"/>
-                            <field name="capacidad_carga" optional="show"/>
-                            <field name="cantidad_despachar" optional="show"/>
-                            <field name="cliente" optional="show"/>
-                            <field name="pedido_venta" optional="show"/>
-                            <field name="orden_entrega" optional="show"/>
-                            <field name="asignada" optional="show"/>
-                        </tree>
+                              options="{'no_open':1,'no_create':1,'no_create_edit':1}">
+                            <tree create="0" edit="0" open="0" delete="0">
+                                <field name="dia_operacion" optional="show" />
+                                <field name="solicitud_despacho" optional="show" />
+                                <field name="patente_remolque" optional="show" />
+                                <field name="modelo_remolque" optional="show" />
+                                <field name="status_remolque" optional="show" />
+                                <field name="capacidad_carga" optional="show" />
+                                <field name="cantidad_despachar" optional="show" />
+                                <field name="cliente" optional="show" />
+                                <field name="pedido_venta" optional="show" />
+                                <field name="orden_entrega" optional="show" />
+                                <field name="asignada" optional="show" />
+                            </tree>
 
                     </field>
 
                 </xpath>
 
-                <!--                <xpath expr="//page[@name='asiganar_remolque']" position="attributes">-->
-                <!--                     <attribute name="attrs">{'invisible': [('mostrar_page', '=',False)]}</attribute>-->
-                <!--                </xpath>-->
+<!--                <xpath expr="//page[@name='asiganar_remolque']" position="attributes">-->
+<!--                     <attribute name="attrs">{'invisible': [('mostrar_page', '=',False)]}</attribute>-->
+<!--                </xpath>-->
 
             </field>
         </record>

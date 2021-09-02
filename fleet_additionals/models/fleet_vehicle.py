@@ -25,14 +25,16 @@ class FleetVehicle(models.Model):
         day = 0
         while day <= cant_days:
             fecha = today + timedelta(days=day)
-            remolque_dia.create({
-                'patente_remolque': vehicle.license_plate,
-                'modelo_remolque': vehicle.model_id.name,
-                'capacidad_carga': vehicle.capacidad_carga,
-                'dia_operacion': fecha
-            })
-
-            day += 1
+            try:
+                remolque_dia.create({
+                    'patente_remolque': vehicle.license_plate,
+                    'modelo_remolque': vehicle.model_id.name,
+                    'capacidad_carga':vehicle.capacidad_carga,
+                    'dia_operacion':fecha
+                })
+            except ValueError:
+                pass
+            day+=1
 
         return vehicle
 
@@ -44,8 +46,7 @@ class FleetVehicle(models.Model):
         vihiculos = self.env['fleet.vehicle'].search([])
 
         for vehicle in vihiculos:
-            if len(remolque_dia.search(
-                    [('patente_remolque', '=', vehicle.license_plate), ('dia_operacion', '=', str(today))])) > 0:
+            if len(remolque_dia.search([('patente_remolque','=',vehicle.license_plate),('dia_operacion','=',str(today))])) > 0:
                 pass
             else:
                 day = 0
@@ -60,8 +61,8 @@ class FleetVehicle(models.Model):
 
                     day += 1
 
-    def suma_annos(self, fecha, cant_annos):
+    def suma_annos(self,fecha,cant_annos):
         try:
-            return fecha.replace(year=fecha.year + cant_annos)
+            return fecha.replace(year = fecha.year + cant_annos)
         except ValueError:
-            return fecha + (date(fecha.year + cant_annos, 1, 1) - date(fecha.year, 1, 1))
+            return fecha + (date(fecha.year+cant_annos,1,1)-date(fecha.year,1,1))

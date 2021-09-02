@@ -68,6 +68,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">remolque_dia</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="fleet_additionals.remolque_dia_view_tree"/>
         </record>
 
         <menuitem action="fleet_additionals.remolque_dia_action" parent="fleet.fleet_vehicles" name="Remolque Día"  id="menu_remolque_dia" sequence="1"/>
