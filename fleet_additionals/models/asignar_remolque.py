@@ -22,6 +22,7 @@ class AsignarRemolque(models.Model):
     pedido_venta = fields.Many2one('sale.order', 'Pedido de venta')
     orden_entrega = fields.Many2one('stock.picking', 'Orden de entrega')
     asignada = fields.Many2one('res.users', 'Asignada')
+    task_ref = fields.Char('Ref')
 
     task_id = fields.Many2one(
         comodel_name='project.task',
