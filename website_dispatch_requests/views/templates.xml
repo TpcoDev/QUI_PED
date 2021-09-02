@@ -5,9 +5,10 @@
         <t t-call="website.layout">
             <div class="wrap">
                 <div class="container">
-                    <div class="container oe_website_sale" style="margin: 22px;">
+                    <div class="container oe_website_sale" style="margin: 22px 0 22px">
                         <div class="row justify-content-md-center">
-                            <div class="col-12">
+                            <div class="col-12"
+                                 style="box-shadow: 0px 0px 2.82px 1.8px rgba(0,0,0,.24), 0px 0px 1.96px 0.04px rgba(0,0,0,.16);border-radius:4px; ma">
                                 <h2 class="mt16 mb-6"><center>Create a new Dispatch Resquests</center></h2>
                                 <div class="o_dispatch_form">
                                     <form action="/dispatch/validate" method="post" class="checkout_autoformat"
@@ -23,7 +24,7 @@
                                                 <span aria-hidden="true">x</span>
                                             </button>
                                         </div>
-                                        <div class="form-row">
+                                        <div class="container">
                                             <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
@@ -32,8 +33,6 @@
                                                        t-attf-class="form-control #{error.get('task_title') and 'is-invalid' or ''}"/>
                                             </div>
                                             <div class="row">
-
-
                                                 <div t-attf-class="form-group #{error.get('dispatch_date') and 'o_has_error' or ''} col-6"
                                                      id="div_email">
                                                     <label class="control-label" for="email">Fecha de despacho
