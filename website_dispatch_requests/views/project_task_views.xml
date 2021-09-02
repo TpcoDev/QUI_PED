@@ -30,6 +30,31 @@
                         </group>
                     </page>
                 </xpath>
+                <xpath expr="//page[@name='extra_info']" position="before">
+                    <page string="Detalle Ordenes Pendientes">
+                        <field name="move_ids" nolabel="1"
+                               attrs="{'readonly': 1}" force_save="1"
+                               options="{'no_create': True, 'no_edit':True, 'delete': False, 'no_open': True}">
+                            <tree editable="bottom">
+                                <field name="origin"/>
+                                <field name="product_qty"/>
+                                <field name="quantity_done"/>
+                                <field name="partner_name"/>
+                                <field name="partner_codigo_sap"/>
+                                <field name="reference"/>
+                                <field name="line_price_unit"/>
+                                <field name="product_id"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="product_uom_category_id" invisible="1"/>
+                                <field name="product_uom_qty"/>
+                                <field name="reserved_availability" string="Cantidad reservada"/>
+                                <field name="total_demanded" widget="monetary" sum="Total Demandada"/>
+                                <field name="total_reserved" widget="monetary" sum="Total Reservada"/>
+                                <field name="product_uom"/>
+                                <field name="state"/>
+                            </tree>
+                        </field></page>
+                </xpath>
 
             </field>
         </record>

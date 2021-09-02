@@ -34,6 +34,26 @@ class ProjectTask(models.Model):
         string='Planificación', default='planifica'
     )
 
+    move_ids = fields.Many2many(
+        comodel_name='stock.move', string=_('Detalle Ordenes Pendientes')
+    )
+
+    def load_moves(self, partner):
+        if self.partner_id:
+            moves = self.env['stock.move'].search(
+                [('partner_codigo_sap', '=', self.partner_id.vat), ('state', 'not in', ('cancel', 'done'))])
+            self.move_ids = [(6, 0, moves.ids)]
+
+    @api.model
+    def default_get(self, fields):
+        res = super(ProjectTask, self).default_get(fields)
+        self.load_moves(self.partner_id)
+        return res
+
+    @api.onchange('partner_id')
+    def _onchange_moves(self):
+        self.load_moves(self.partner_id)
+
     def _prepare_task_value(self, values):
         vals = {}
         if values.get('task_title', False):

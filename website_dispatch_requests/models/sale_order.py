@@ -27,9 +27,8 @@ class SaleOrder(models.Model):
         readonly=True
     )
 
-    move_ids = fields.One2many(
-        comodel_name='stock.move',
-        inverse_name='sale_order_id', string=_('Detalle Ordenes Pendientes')
+    move_ids = fields.Many2many(
+        comodel_name='stock.move', string=_('Detalle Ordenes Pendientes')
     )
 
     total_reserved = fields.Monetary(compute='_compute_total', string=_('Total Reservado'),
@@ -87,12 +86,21 @@ class SaleOrder(models.Model):
         elif self.lc_verificacion == 'pendiente':
             self.lc_fecha_hora_verificacion = False
 
-    @api.onchange('partner_id')
-    def _onchange_moves(self):
+    def load_moves(self, partner):
         if self.partner_id:
             moves = self.env['stock.move'].search(
                 [('partner_codigo_sap', '=', self.partner_id.vat), ('state', 'not in', ('cancel', 'done'))])
             self.move_ids = [(6, 0, moves.ids)]
+
+    @api.model
+    def default_get(self, fields):
+        res = super(SaleOrder, self).default_get(fields)
+        self.load_moves(self.partner_id)
+        return res
+
+    @api.onchange('partner_id')
+    def _onchange_moves(self):
+        self.load_moves(self.partner_id)
 
     def _action_confirm(self):
         ctx = self.env.context.copy()
