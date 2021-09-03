@@ -11,6 +11,17 @@
                 print_report_name="'Despacho planificado %s - %s' % (object.name, object.partner_id.name)"
                 report_type="qweb-pdf"/>
 
+<!--        <record id="project_task_planned_report_action" model="ir.actions.report">-->
+<!--            <field name="name">Despachos planificados PDF</field>-->
+<!--            <field name="model">project.task</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">fleet_additionals.report_project_task_planned</field>-->
+<!--            <field name="report_file">fleet_additionals.report_project_task_planned</field>-->
+<!--            <field name="print_report_name">'Despacho planificado %s - %s' % (object.name, object.partner_id.name)</field>-->
+<!--            <field name="binding_model_id" ref="fleet_additionals.model_project_task"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
         <template id="fleet_additionals.report_project_task_planned">
             <t t-call="web.html_container">
                 <t t-call="web.internal_layout">

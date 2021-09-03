@@ -18,8 +18,9 @@
                             <field name="modelo_remolque" readonly="1"/>
                         </group>
                         <group>
+<!--                            attrs="{'readonly': [('patente_remolque', '=', False)]}"-->
                             <field name="capacidad_carga" invisible="1"/>
-                            <field name="chofer_camion" attrs="{'readonly': [('patente_remolque', '=', False)]}"/>
+                            <field name="chofer_camion" readonly="1"/>
                             <field name="patente_camion_tracto" readonly="1"/>
                             <field name="status" readonly="1" />
                         </group>
@@ -31,8 +32,8 @@
 
 
                     <field name="remolque_ids" nolabel="1" domain="[('dia_operacion','=',planned_date_begin),('status_trailer_day','=','disponible')]"
-                           context="{'task_id': id}" create="false" delete="false">
-                            <tree create="false" limit="10000">
+                           context="{'task_id': id,'asignar_remolque': True}" create="false" delete="false">
+                            <tree create="false" delete="false" limit="5" >
                                 <field name="id" invisible="1" />
                                 <field name="status_trailer_day"/>
                                 <field name="patente_remolque" />
@@ -50,6 +51,7 @@
                     <field name="asignar_remolque_id" force_save="1" mode="tree" nolabel="1" class="custom_class"
                               options="{'no_open':1,'no_create':1,'no_create_edit':1}">
                             <tree create="0" edit="0" open="0" delete="0">
+                                <field name="task_ref" optional="show" />
                                 <field name="dia_operacion" optional="show" />
                                 <field name="solicitud_despacho" optional="show" />
                                 <field name="patente_remolque" optional="show" />

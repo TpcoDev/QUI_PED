@@ -1,8 +1,0 @@
-<odoo>
-    <template id="fleet_additionals_assets_frontend" inherit_id="website.assets_frontend"
-              name="Fleet Additionals Requests">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/scss" href="/fleet_additionals/static/src/css/custom.css"/>
-        </xpath>
-    </template>
-</odoo>

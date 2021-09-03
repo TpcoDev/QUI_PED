@@ -9,12 +9,20 @@ _logger = logging.getLogger(__name__)
 
 class AsignarRemolque(models.Model):
     _name = "asignar_remolque"
+    _description = "Detalle del remolque asignado"
 
     dia_operacion = fields.Date('Fecha operación')
     solicitud_despacho = fields.Char('Solicitud de despacho')
     patente_remolque = fields.Char('Patente remolque')
     modelo_remolque = fields.Char('Nombre vehículo')
-    status_remolque = fields.Char('Estado remolque')
+    # status_remolque = fields.Char('Estado remolque')
+
+    status_remolque = fields.Selection([
+        ('completado', 'Completado'),
+        ('mantenimiento', 'Mantenimiento'),
+        ('disponible', 'Disponible'),
+    ], string='Estado')
+
     capacidad_carga = fields.Float('Capacidad carga', digits=(16, 3))
     cantidad_despachar = fields.Float('Cantidad a despachar', digits=(16, 3))
     # cliente = fields.Many2one('res.partner', 'Cliente')
@@ -22,6 +30,7 @@ class AsignarRemolque(models.Model):
     pedido_venta = fields.Many2one('sale.order', 'Pedido de venta')
     orden_entrega = fields.Many2one('stock.picking', 'Orden de entrega')
     asignada = fields.Many2one('res.users', 'Asignada')
+    task_ref = fields.Char('Ref')
 
     task_id = fields.Many2one(
         comodel_name='project.task',
