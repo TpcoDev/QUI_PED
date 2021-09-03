@@ -62,7 +62,6 @@ class RemolqueDia(models.Model):
                     fecha = fields.Datetime.context_timestamp(self, datetime.strptime(str(task.planned_date_begin),
                                                                 '%Y-%m-%d %H:%M:%S')).strftime("%Y-%m-%d")
                     tasks = task.search([('dia_operacion','=',fecha),('patente_remolque','=',remolque.patente_remolque)])
-
                     if tasks:
                         for tarea in tasks:
                             res= self.crear_remolque_asignado(tarea)

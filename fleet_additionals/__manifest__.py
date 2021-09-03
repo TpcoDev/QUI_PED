@@ -13,7 +13,7 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Fleet',
-    'version': '1.1.7',
+    'version': '1.1.9',
     
     # any module necessary for this one to work correctly
     'depends': ['fleet', 'industry_fsm', 'website_dispatch_requests'],

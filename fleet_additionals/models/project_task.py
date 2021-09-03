@@ -103,18 +103,18 @@ class ProjectTask(models.Model):
         if self.btn_asignar:
             self.btn_asignar = False
             for tarea in self:
-                if tarea.dia_operacion and tarea.patente_remolque:
-                    tasks = tasks.search([('dia_operacion', '=', tarea.dia_operacion),
-                                          ('patente_remolque', '=', tarea.patente_remolque)])
-                    remolque = remolque.search([('dia_operacion', '=', tarea.dia_operacion),
-                                          ('patente_remolque', '=', tarea.patente_remolque)])
-                    tarea.status = remolque.status_trailer_day
-                        # dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
-                        #                                ['status_trailer_day']['selection'])[remolque.status_trailer_day]
-                    for task in tasks:
-                        res = self.crear_remolque_asiganado(task)
-                        ids.append(res.id)
-                elif tarea.asignar_remolque_id:
+                # if tarea.dia_operacion and tarea.patente_remolque:
+                #     tasks = tasks.search([('dia_operacion', '=', tarea.dia_operacion),
+                #                           ('patente_remolque', '=', tarea.patente_remolque)])
+                #     remolque = remolque.search([('dia_operacion', '=', tarea.dia_operacion),
+                #                           ('patente_remolque', '=', tarea.patente_remolque)])
+                #     tarea.status = remolque.status_trailer_day
+                #         # dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
+                #         #                                ['status_trailer_day']['selection'])[remolque.status_trailer_day]
+                #     for task in tasks:
+                #         res = self.crear_remolque_asiganado(task)
+                #         ids.append(res.id)
+                if tarea.asignar_remolque_id:
                     tasks = tasks.search([('dia_operacion','=',tarea.asignar_remolque_id[0].dia_operacion),('patente_remolque','=',tarea.asignar_remolque_id[0].patente_remolque)])
                     for task in tasks:
                         res = self.crear_remolque_asiganado(task)
