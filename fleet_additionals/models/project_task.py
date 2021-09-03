@@ -14,12 +14,10 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     remolque_id = fields.Many2one('remolque_dia', string='Remolque_dia', ondelete='cascade')
-    # attachment_datas = fields.Binary('Document', related='attachment_id.datas')
-    # attachment_fname = fields.Char('Attachment Filename', related='attachment_id.name')
 
     dia_operacion = fields.Date('Fecha operación', related='remolque_id.dia_operacion')
     chofer_camion = fields.Char('Chofer', related='remolque_id.chofer_camion')
-    patente_remolque = fields.Char('Patente Remolque', related='remolque_id.patente_remolque')
+    patente_remolque = fields.Char('Patente Remolque', related='remolque_id.patente_remolque',store=True)
     patente_camion_tracto = fields.Char('Patente Camion Tracto', related='remolque_id.patente_camion_tracto')
     modelo_remolque = fields.Char('Nombre vehículo', related='remolque_id.modelo_remolque')
     # status = fields.Char('Estado')
@@ -101,6 +99,7 @@ class ProjectTask(models.Model):
         ids = []
         tasks = self.env['project.task']
         remolque = self.env['remolque_dia']
+
         if self.btn_asignar:
             self.btn_asignar = False
             for tarea in self:

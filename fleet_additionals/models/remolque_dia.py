@@ -59,7 +59,10 @@ class RemolqueDia(models.Model):
                     # if remolque.patente_remolque != task.patente_remolque:
                     #     raise exceptions.ValidationError(
                     #         u'El remolque que intenta asignar no es el mismo del cual visualizó la información.')
-                    tasks = task.search([('dia_operacion','=',task.planned_date_begin),('patente_remolque','=',remolque.patente_remolque)])
+                    fecha = fields.Datetime.context_timestamp(self, datetime.strptime(str(task.planned_date_begin),
+                                                                '%Y-%m-%d %H:%M:%S')).strftime("%Y-%m-%d")
+                    tasks = task.search([('dia_operacion','=',fecha),('patente_remolque','=',remolque.patente_remolque)])
+
                     if tasks:
                         for tarea in tasks:
                             res= self.crear_remolque_asignado(tarea)
@@ -71,12 +74,15 @@ class RemolqueDia(models.Model):
             task.btn_asignar = True
             task.asignar_remolque_id = [(6, 0, ids)]
 
+
     def name_get(self):
         if self._context is None:
             self._context = {}
         res = []
         for remolque_dia in self:
-            fecha = datetime.strptime(str(remolque_dia.dia_operacion),'%Y-%m-%d').strftime("%d/%m/%Y")
+            #fecha = datetime.strptime(str(remolque_dia.dia_operacion),'%Y-%m-%d').strftime("%d/%m/%Y")
+            fecha = fields.Datetime.context_timestamp(self, datetime.strptime(str(remolque_dia.dia_operacion),
+                                                                              '%Y-%m-%d')).strftime("%d/%m/%Y")
             res.append(
                     (remolque_dia.id, ("%(modelo_remolque)s - %(dia_operacion)s") % {
                         'modelo_remolque': remolque_dia.modelo_remolque,
