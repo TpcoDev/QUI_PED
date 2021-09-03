@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class RemolqueDia(models.Model):
     _name = "remolque_dia"
+    _description = "Remolque"
 
     name = fields.Char(string='Nombre',default='Nuevo')
 
@@ -39,13 +40,15 @@ class RemolqueDia(models.Model):
             task = self.env['project.task'].search([('id','=',int(self._context.get('task_id')))])
             if task:
                 for remolque in self:
+                    task.remolque_id = remolque.id
                     task.dia_operacion = remolque.dia_operacion
                     task.patente_remolque = remolque.patente_remolque
                     task.modelo_remolque = remolque.modelo_remolque
                     task.chofer_camion = remolque.chofer_camion
                     task.patente_camion_tracto = remolque.patente_camion_tracto
-                    task.status = dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
-                                                   ['status_trailer_day']['selection'])[remolque.status_trailer_day]
+                    task.status = remolque.status_trailer_day
+                        # dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
+                        #                            ['status_trailer_day']['selection'])[remolque.status_trailer_day]
 
     def action_asignar_remolque(self):
         ids = []

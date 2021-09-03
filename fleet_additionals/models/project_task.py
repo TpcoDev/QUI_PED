@@ -13,12 +13,21 @@ _logger = logging.getLogger(__name__)
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    dia_operacion = fields.Date('Fecha operación')
-    chofer_camion = fields.Char('Chofer')
-    patente_remolque = fields.Char('Patente Remolque')
-    patente_camion_tracto = fields.Char('Patente Camion Tracto')
-    modelo_remolque = fields.Char('Nombre vehículo')
-    status = fields.Char('Estado')
+    remolque_id = fields.Many2one('remolque_dia', string='Remolque_dia', ondelete='cascade')
+    # attachment_datas = fields.Binary('Document', related='attachment_id.datas')
+    # attachment_fname = fields.Char('Attachment Filename', related='attachment_id.name')
+
+    dia_operacion = fields.Date('Fecha operación', related='remolque_id.dia_operacion')
+    chofer_camion = fields.Char('Chofer', related='remolque_id.chofer_camion')
+    patente_remolque = fields.Char('Patente Remolque', related='remolque_id.patente_remolque')
+    patente_camion_tracto = fields.Char('Patente Camion Tracto', related='remolque_id.patente_camion_tracto')
+    modelo_remolque = fields.Char('Nombre vehículo', related='remolque_id.modelo_remolque')
+    # status = fields.Char('Estado')
+    status = fields.Selection([
+        ('completado', 'Completado'),
+        ('mantenimiento', 'Mantenimiento'),
+        ('disponible', 'Disponible'),
+    ], string='Estado', related='remolque_id.status_trailer_day')
     capacidad_carga = fields.Float('Capacidad carga', digits=(16, 3))
 
 
@@ -35,6 +44,7 @@ class ProjectTask(models.Model):
 
     def desasignar_remolque(self):
         for task in self:
+            task.remolque_id = None
             task.dia_operacion = None
             task.chofer_camion = None
             task.patente_remolque = None
@@ -99,8 +109,9 @@ class ProjectTask(models.Model):
                                           ('patente_remolque', '=', tarea.patente_remolque)])
                     remolque = remolque.search([('dia_operacion', '=', tarea.dia_operacion),
                                           ('patente_remolque', '=', tarea.patente_remolque)])
-                    tarea.status = dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
-                                                       ['status_trailer_day']['selection'])[remolque.status_trailer_day]
+                    tarea.status = remolque.status_trailer_day
+                        # dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
+                        #                                ['status_trailer_day']['selection'])[remolque.status_trailer_day]
                     for task in tasks:
                         res = self.crear_remolque_asiganado(task)
                         ids.append(res.id)
@@ -139,6 +150,16 @@ class ProjectTask(models.Model):
     @api.onchange('remolque_ids')
     def _onchange_remolque_ids(self):
         self._onchange_planned_date_begin()
+        if self.patente_remolque:
+            remolques = self.remolque_ids
+            for remolque in remolques:
+                if self.patente_remolque == remolque.patente_remolque:
+                    self.chofer_camion = remolque.chofer_camion
+                    self.patente_camion_tracto = remolque.patente_camion_tracto
+                    self.status = remolque.status_trailer_day
+
+                        # dict(self.env['remolque_dia'].fields_get(allfields=['status_trailer_day'])
+                        #                            ['status_trailer_day']['selection'])[remolque.status_trailer_day]
 
     # def compute_remolques(self):
     #     ids = []
