@@ -106,7 +106,7 @@ class ProjectTask(models.Model):
                 task.with_context({'dispatch_qty': dispatch_qty}).sale_line_id._action_launch_stock_rule()
 
                 task.write({
-                    'picking_id': task.sale_line_id.move_ids[0].picking_id.id,
+                    'picking_id': task.sale_line_id.move_ids[-1].picking_id.id,
                     'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
                 })
 

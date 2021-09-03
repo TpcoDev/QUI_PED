@@ -23,6 +23,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="default_field" invisible="0" context="{'default_field': 1}"/>
                     <field name="codigo_sap"/>
                     <field name="lc_disponible"/>
                     <field name="lc_verificacion" widget="radio" options="{'horizontal': True}"/>

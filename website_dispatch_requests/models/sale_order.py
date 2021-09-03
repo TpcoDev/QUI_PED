@@ -9,16 +9,17 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    d_state = fields.Char(compute='_search_available_orders', string='Estado de despacho')
-
-    dispatch_name = fields.Char(compute='_compute_dispatch_name', string='Nombre del pedido')
+    d_state = fields.Char(compute='_search_available_orders', string='Estado de despacho', default=_('opened'))
+    default_field = fields.Integer(default=1)
+    dispatch_name = fields.Char(compute='_compute_dispatch_name', string='Nombre del pedido',
+                                default=lambda self: self.name)
     codigo_sap = fields.Char(related='partner_id.vat', string='Cod SAP')
     lc_verificacion = fields.Selection(
         selection=[('pendiente', _('Pendiente')), ('aprobado', _('Aprobado')), ('no_aprueba', _('No Aprueba'))],
         default='pendiente', string=_('Verificación LC')
     )
 
-    lc_fecha_hora_verificacion = fields.Datetime(string=_('Fecha y hora Verificación'))
+    lc_fecha_hora_verificacion = fields.Datetime(string=_('Fecha y hora Verificación'), default=fields.Datetime.now())
     lc_fecha_hora = fields.Datetime(related='partner_id.lc_fecha_hora', string=_('Fecha y hora LC'))
     lc_disponible = fields.Monetary(related='partner_id.lc_disponible', currency_field='company_currency',
                                     tracking=True)
@@ -36,6 +37,18 @@ class SaleOrder(models.Model):
     total_demanded = fields.Monetary(compute='_compute_total', string=_('Total Demandado'),
                                      currency_field='company_currency')
 
+    def load_moves(self, partner):
+        if self.partner_id:
+            moves = self.env['stock.move'].search(
+                [('partner_codigo_sap', '=', self.partner_id.vat), ('state', 'not in', ('cancel', 'done'))])
+            self.move_ids = [(6, 0, moves.ids)]
+
+    @api.model
+    def default_get(self, fields=[]):
+        res = super(SaleOrder, self).default_get(fields)
+        self.load_moves(self.partner_id)
+        return res
+
     @api.depends('order_line')
     def _search_available_orders(self):
         for rec in self:
@@ -45,6 +58,7 @@ class SaleOrder(models.Model):
     @api.depends('move_ids.reserved_availability', 'move_ids.product_uom_qty', 'move_ids.line_price_unit')
     def _compute_total(self):
         self.ensure_one()
+        self.default_get()
         if len(self.move_ids):
             for rec in self.move_ids:
                 self.total_reserved += rec.reserved_availability * rec.line_price_unit
@@ -85,18 +99,6 @@ class SaleOrder(models.Model):
                 )
         elif self.lc_verificacion == 'pendiente':
             self.lc_fecha_hora_verificacion = False
-
-    def load_moves(self, partner):
-        if self.partner_id:
-            moves = self.env['stock.move'].search(
-                [('partner_codigo_sap', '=', self.partner_id.vat), ('state', 'not in', ('cancel', 'done'))])
-            self.move_ids = [(6, 0, moves.ids)]
-
-    @api.model
-    def default_get(self, fields):
-        res = super(SaleOrder, self).default_get(fields)
-        self.load_moves(self.partner_id)
-        return res
 
     @api.onchange('partner_id')
     def _onchange_moves(self):
