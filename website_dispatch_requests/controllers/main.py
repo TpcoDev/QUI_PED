@@ -70,8 +70,7 @@ class DispatchRequestsController(http.Controller):
             title += f'{name}'
         if default_code:
             title += f'-{default_code}'
-        if product_uom_qty:
-            product_uom_qty = 0 if product_uom_qty == -1 else product_uom_qty
+        if product_uom_qty != -1:
             title += f'-{product_uom_qty}'
         if product_uom_name:
             title += f'-{product_uom_name}'
@@ -139,10 +138,9 @@ class DispatchRequestsController(http.Controller):
         product_ids = sale_order_lines.mapped('product_id')
         sale_order_ids = sale_order_lines.mapped('order_id')
 
-        cantidad = cantidad_pendiente = 0
         checkout_values.update({
-            'cantidad_pendiente': cantidad_pendiente,
-            'cantidad': cantidad
+            'cantidad_pendiente': 0,
+            'cantidad': 0
         })
 
         keep = QueryURL('/dispatch')

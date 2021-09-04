@@ -28,7 +28,6 @@
                                             <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
-                                                       t-att-readonly="'1'"
                                                        t-att-value="'task_title' in checkout and checkout['task_title']"
                                                        t-attf-class="form-control #{error.get('task_title') and 'is-invalid' or ''}"/>
                                             </div>
@@ -64,8 +63,7 @@
                                             </div>
 
                                             <div t-attf-class="row form-group #{error.get('sale_order_id') and 'o_has_error' or ''} col-12 div_order">
-                                                <label class="control-label" for="sale_order_id">Pedidos de
-                                                    Venta</label>
+                                                <label class="control-label" for="sale_order_id">Seleccionar Órdenes de Compra</label>
                                                 <select id="sale_order_id" name="sale_order_id"
                                                         t-attf-class="form-control #{error.get('sale_order_id') and 'is-invalid' or ''}">
                                                     <option value="">Pedidos...</option>
