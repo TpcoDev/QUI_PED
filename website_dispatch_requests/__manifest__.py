@@ -13,7 +13,7 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Website/Website',
-    'version': '2.20210904',
+    'version': '2.20210905',
 
     # any module necessary for this one to work correctly
     'depends': [
@@ -23,7 +23,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/dispatch_requests_security.xml',
+        'views/res_users_views.xml',
         'views/assets.xml',
         'views/templates.xml',
         'views/project_task_views.xml',
