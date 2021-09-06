@@ -210,6 +210,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _changePartner: function () {
+            var self = this;
             var partner = $("input[name='partner_id']");
                 partner.attr('value', this.$partner.val());
 
@@ -238,7 +239,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 select.innerHTML += "<option value=0>Producto...</option>";
                 var taskTitle = $("input[name='task_title']");
                 taskTitle.attr('value', '');
-                var cantidadTitle = $("input[name='cantidad']");
+                self.$cantidadPendiente.attr('value', 0);
 
             });
 

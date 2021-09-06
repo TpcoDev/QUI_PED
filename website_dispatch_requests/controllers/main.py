@@ -110,14 +110,20 @@ class DispatchRequestsController(http.Controller):
         order_names = []
         if partner_id:
             sale_order_lines = request.env['sale.order.line'].search(
-                [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', int(partner_id))]
-            ).filtered(lambda r: r.qty_delivered < r.product_uom_qty)
-            sale_order_ids = sale_order_lines.mapped('order_id')
-            for order in sale_order_ids:
-                order_ids.append(order.id)
-                order_names.append(order.name)
+                [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', int(partner_id))])
+            #sale_order_ids = sale_order_lines.mapped('order_id')
+
+            for sale_order in sale_order_lines:
+                moves = request.env['stock.move'].sudo().search(
+                    [('state', '!=', 'cancel'), ('sale_line_id', '=', sale_order.id)])
+                sum_qty = sum(moves.mapped('product_uom_qty'))
+                cantidad = sale_order.product_uom_qty - sum_qty
+                if cantidad > 0:
+                    order_ids.append(sale_order.order_id.id)
+                    order_names.append(sale_order.order_id.client_order_ref + ' -'+sale_order.order_id.name)
             res['ids'] = order_ids
             res['names'] = order_names
+        print(res)
         return res
 
     @http.route('/dispatch/validate', type='http', auth="user", website=True)
@@ -131,7 +137,7 @@ class DispatchRequestsController(http.Controller):
             ).filtered(lambda r: r.qty_delivered < r.product_uom_qty)
             product_ids = sale_order_lines.mapped('product_id')
             sale_order_ids = sale_order_lines.mapped('order_id')
-            
+
             partner_ids = []
             ids = []
             for group in request.env.user.groups_id:
