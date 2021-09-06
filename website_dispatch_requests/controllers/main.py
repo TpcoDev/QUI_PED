@@ -115,6 +115,7 @@ class DispatchRequestsController(http.Controller):
         res = {}
         order_ids = []
         order_names = []
+        partner_id = partner_id if partner_id else request.env.user.partner_id.id
         if partner_id:
             sale_order_lines = request.env['sale.order.line'].search(
                 [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', int(partner_id))])
