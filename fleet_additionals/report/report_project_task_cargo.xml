@@ -6,8 +6,8 @@
             <field name="name">Reporte de carga</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
-            <field name="page_height">210</field>
-            <field name="page_width">297</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
             <field name="orientation">Landscape</field>
             <field name="margin_top">35</field>
             <field name="margin_bottom">20</field>
@@ -148,7 +148,7 @@
 
                                                     </td>
                                                     <td>
-                                                        <span t-field="o.sale_order_id.name"/>
+                                                        <span t-field="o.sale_order_id.client_order_ref"/>
                                                     </td>
                                                     <td>
 
