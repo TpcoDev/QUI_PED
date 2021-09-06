@@ -60,8 +60,10 @@ class DispatchRequestsController(http.Controller):
             order_id = request.env['sale.order'].sudo().browse(int(order_sale_id))
             name = order_id.name
         if order_line_id:
-            #order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
-            order_line_id = request.env['sale.order.line'].search([('id','=',int(order_line_id))])
+            if self.comprobar_user():
+                order_line_id = request.env['sale.order.line'].search([('id','=',int(order_line_id))])
+            else:
+                order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
             default_code = order_line_id.product_id.default_code
             product_uom_name = order_line_id.product_uom.name
         if qty:
@@ -74,7 +76,7 @@ class DispatchRequestsController(http.Controller):
             title += f'-{product_uom_qty}'
         if product_uom_name:
             title += f'-{product_uom_name}'
-        # self.get_cantidad(order_line_id)
+        self.get_cantidad(order_line_id)
         return title
 
     @http.route('/dispatch/get_cantidad', type='json', auth="public", methods=['POST'], website=True)
@@ -95,9 +97,17 @@ class DispatchRequestsController(http.Controller):
         order_names = []
         if order_line_id:
             order_line_id = request.env['sale.order.line'].sudo().search([('order_id','=',int(order_line_id))])
-            for product in order_line_id:
-                order_ids.append(product.id)
-                order_names.append(product.name)
+            for order_line in order_line_id:
+
+                moves = request.env['stock.move'].sudo().search(
+                    [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line.id)])
+                sum_qty = sum(moves.mapped('product_uom_qty'))
+                cantidad = order_line.product_uom_qty - sum_qty
+                if cantidad > 0:
+                    order_ids.append(order_line.id)
+                    order_names.append(order_line.name)
+                order_ids.append(order_line.id)
+                order_names.append(order_line.name)
             res['ids'] = order_ids
             res['names'] = order_names
 
@@ -221,3 +231,13 @@ class DispatchRequestsController(http.Controller):
         }
 
         return request.render("website_dispatch_requests.dispatch_form", values)
+
+    def comprobar_user(self):
+        user_permiso = False
+        ids = []
+        for group in request.env.user.groups_id:
+            ids.append(group.id)
+        if request.env.ref('website_dispatch_requests.group_dispatch_partner_request').id in ids:
+            user_permiso = True
+
+        return user_permiso

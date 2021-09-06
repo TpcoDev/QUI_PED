@@ -92,6 +92,18 @@
             </field>
         </record>
 
+        <record id="project_task_view_search_fsm_fleet" model="ir.ui.view">
+            <field name="name">project.task.fleet.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.project_task_view_search_fsm"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='planned_future']" position="after">
+                    <filter name="status_complet" string="Estado Completado" domain="[('status', '=', 'completado')]"/>
+                </xpath>
+
+            </field>
+        </record>
+
 
     </data>
 </odoo>

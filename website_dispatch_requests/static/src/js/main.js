@@ -240,7 +240,6 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 var taskTitle = $("input[name='task_title']");
                 taskTitle.attr('value', '');
                 self.$cantidadPendiente.attr('value', 0);
-
             });
 
         },

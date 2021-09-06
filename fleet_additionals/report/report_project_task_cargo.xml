@@ -9,12 +9,12 @@
             <field name="page_height">210</field>
             <field name="page_width">297</field>
             <field name="orientation">Landscape</field>
-            <field name="margin_top">20</field>
+            <field name="margin_top">35</field>
             <field name="margin_bottom">20</field>
             <field name="margin_left">7</field>
             <field name="margin_right">7</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">15</field>
+            <field name="header_spacing">35</field>
             <field name="dpi">90</field>
         </record>
 
@@ -142,7 +142,7 @@
                                                         <span t-field="sale_order.product_id.uom_id.name"/>
                                                     </td>
                                                     <td>
-                                                        <span t-field="o.partner_id.name"/>
+                                                        <span t-field="o.partner_id.display_name"/>
                                                     </td>
                                                     <td>
 
