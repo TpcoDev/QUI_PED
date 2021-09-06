@@ -131,7 +131,18 @@ class DispatchRequestsController(http.Controller):
             ).filtered(lambda r: r.qty_delivered < r.product_uom_qty)
             product_ids = sale_order_lines.mapped('product_id')
             sale_order_ids = sale_order_lines.mapped('order_id')
-            partner_ids = request.env['res.partner'].search([])
+            
+            partner_ids = []
+            ids = []
+            for group in request.env.user.groups_id:
+                ids.append(group.id)
+            if request.env.ref('website_dispatch_requests.group_dispatch_partner_request').id in ids:
+                empresas_permitidas_ids = []
+                if request.env.user.partner_request_ids:
+                    for empresa in request.env.user.partner_request_ids:
+                        empresas_permitidas_ids.append(empresa.id)
+                    partner_ids = request.env['res.partner'].search([('id', 'in', empresas_permitidas_ids)])
+
             vals = {
                 'search': search,
                 'sale_order_ids': sale_order_ids,
@@ -174,7 +185,7 @@ class DispatchRequestsController(http.Controller):
             if request.env.user.partner_request_ids:
                 for empresa in request.env.user.partner_request_ids:
                     empresas_permitidas_ids.append(empresa.id)
-                partner_ids = request.env['res.partner'].search([('id', 'in', empresas_permitidas_ids)])
+                partner_ids = request.env['res.partner'].search([('id','in',empresas_permitidas_ids)])
 
 
         sale_order_lines = request.env['sale.order.line'].search(
