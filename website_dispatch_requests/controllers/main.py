@@ -61,7 +61,7 @@ class DispatchRequestsController(http.Controller):
             name = order_id.name
         if order_line_id:
             if self.comprobar_user():
-                order_line_id = request.env['sale.order.line'].search([('id','=',int(order_line_id))])
+                order_line_id = request.env['sale.order.line'].search([('id', '=', int(order_line_id))])
             else:
                 order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
             default_code = order_line_id.product_id.default_code
@@ -96,7 +96,7 @@ class DispatchRequestsController(http.Controller):
         order_ids = []
         order_names = []
         if order_line_id:
-            order_line_id = request.env['sale.order.line'].sudo().search([('order_id','=',int(order_line_id))])
+            order_line_id = request.env['sale.order.line'].sudo().search([('order_id', '=', int(order_line_id))])
             for order_line in order_line_id:
                 moves = request.env['stock.move'].sudo().search(
                     [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line.id)])
@@ -130,7 +130,7 @@ class DispatchRequestsController(http.Controller):
                         cantidad = sale_order.product_uom_qty - sum_qty
                     if cantidad > 0 and order.id not in order_ids:
                         order_ids.append(order.id)
-                        order_names.append(order.client_order_ref + ' -'+order.name)
+                        order_names.append(order.client_order_ref + ' -' + order.name)
             res['ids'] = order_ids
             res['names'] = order_names
         return res
@@ -190,7 +190,7 @@ class DispatchRequestsController(http.Controller):
         # if request.env.user.partner_id.id == request.website.user_id.sudo().partner_id.id:
         #     return request.render("website_helpdesk_system.login_required", {})
         request.context = dict(request.context, partner=request.env.user.partner_id)
-        #if request.env.ref('base.group_system') in request.env.user.groups_id:
+        # if request.env.ref('base.group_system') in request.env.user.groups_id:
         partner_ids = []
         ids = []
         for group in request.env.user.groups_id:
@@ -200,8 +200,7 @@ class DispatchRequestsController(http.Controller):
             if request.env.user.partner_request_ids:
                 for empresa in request.env.user.partner_request_ids:
                     empresas_permitidas_ids.append(empresa.id)
-                partner_ids = request.env['res.partner'].search([('id','in',empresas_permitidas_ids)])
-
+                partner_ids = request.env['res.partner'].search([('id', 'in', empresas_permitidas_ids)])
 
         sale_order_lines = request.env['sale.order.line'].search(
             [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', partner_id)]
@@ -209,11 +208,16 @@ class DispatchRequestsController(http.Controller):
         product_ids = sale_order_lines.mapped('product_id')
         sale_order_ids = sale_order_lines.mapped('order_id')
 
-
         checkout_values.update({
             'cantidad_pendiente': 0,
             'cantidad': 0
         })
+
+        delivery_ids = request.env['res.partner'].sudo().search(
+            [('parent_id', '=', partner_id), ('type', '=', 'delivery')])
+        if len(partner_ids):
+            delivery_ids = request.env['res.partner'].sudo().search(
+                [('parent_id', 'in', partner_ids.ids), ('type', '=', 'delivery')])
 
         keep = QueryURL('/dispatch')
         values = {
@@ -223,6 +227,7 @@ class DispatchRequestsController(http.Controller):
             'product_ids': product_ids,
             'sale_order_lines': sale_order_lines,
             'partner_id': partner_id,
+            'delivery_ids': delivery_ids,
             'keep': keep,
             'error': errors,
             'checkout': checkout_values,

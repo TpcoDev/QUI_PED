@@ -56,6 +56,17 @@ class ProjectTask(models.Model):
 
     def _prepare_task_value(self, values):
         vals = {}
+        # By default get a user to create a stock.picking
+        partner = self.env.user.partner_id.id
+
+        if values.get('partner_id', False):
+            project_id = self.env['project.project'].search([
+                ('is_fsm', '=', True), ('partner_id', '=', int(values['partner_id']))
+            ], limit=1)
+            vals.update({
+                'project_id': project_id.id
+            })
+
         if values.get('task_title', False):
             vals.update({'name': values['task_title'], 'is_fsm': True})
         if values.get('dispatch_date', False):
@@ -83,15 +94,13 @@ class ProjectTask(models.Model):
             vals.update({
                 'cantidad_despachar': values['cantidad'],
             })
-        if values.get('partner_id', False):
-            project_id = self.env['project.project'].search([
-                ('is_fsm', '=', True), ('partner_id', '=', int(values['partner_id']))
-            ], limit=1)
-            vals.update({
-                'partner_id': int(values['partner_id']),
-                'project_id': project_id.id
-            })
-        vals.update({'planification': 'pendiente'})
+
+        if values.get('partner_ids', False) and values['partner_ids']:
+            partner = int(values['partner_ids'])
+        else:
+            partner = int(values['partner_id'])
+
+        vals.update({'planification': 'pendiente', 'partner_id': partner})
         return vals
 
     @api.model
@@ -109,6 +118,10 @@ class ProjectTask(models.Model):
                     'picking_id': task.sale_line_id.move_ids[-1].picking_id.id,
                     'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
                 })
+
+                if vals.get('delivery_ids', False) and vals['delivery_ids']:
+                    partner = int(values['delivery_ids'])
+                    task.sale_line_id.move_ids[-1].picking_id.write({'partner_id': partner})
 
                 return {
                     'title': _('Task Created'),
