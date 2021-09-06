@@ -55,18 +55,17 @@ class DispatchRequestsController(http.Controller):
     @http.route('/dispatch/get_title', type='json', auth="public", methods=['POST'], website=True)
     def get_task_title(self, order_sale_id=False, order_line_id=False, qty=False, **kw):
         title = name = default_code = product_uom_name = ''
-
         product_uom_qty = -1
         if order_sale_id:
             order_id = request.env['sale.order'].sudo().browse(int(order_sale_id))
             name = order_id.name
         if order_line_id:
-            order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
+            #order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
+            order_line_id = request.env['sale.order.line'].search([('id','=',int(order_line_id))])
             default_code = order_line_id.product_id.default_code
             product_uom_name = order_line_id.product_uom.name
         if qty:
             product_uom_qty = qty
-
         if name:
             title += f'{name}'
         if default_code:
@@ -75,14 +74,13 @@ class DispatchRequestsController(http.Controller):
             title += f'-{product_uom_qty}'
         if product_uom_name:
             title += f'-{product_uom_name}'
-        self.get_cantidad(order_line_id)
+        # self.get_cantidad(order_line_id)
         return title
 
     @http.route('/dispatch/get_cantidad', type='json', auth="public", methods=['POST'], website=True)
     def get_cantidad(self, order_line_id=False, **kw):
         cantidad = 0
         if order_line_id:
-            print(order_line_id)
             order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
             moves = request.env['stock.move'].sudo().search(
                 [('state', '!=', 'cancel'), ('sale_line_id', '=', order_line_id.id)])
@@ -90,11 +88,26 @@ class DispatchRequestsController(http.Controller):
             cantidad = order_line_id.product_uom_qty - sum_qty
         return abs(cantidad)
 
+    @http.route('/dispatch/get_products', type='json', auth="public", methods=['POST'], website=True)
+    def get_products(self, order_line_id=False, **kw):
+        res = {}
+        order_ids = []
+        order_names = []
+        if order_line_id:
+            order_line_id = request.env['sale.order.line'].sudo().search([('order_id','=',int(order_line_id))])
+            for product in order_line_id:
+                order_ids.append(product.id)
+                order_names.append(product.name)
+            res['ids'] = order_ids
+            res['names'] = order_names
+
+        return res
+
     @http.route('/dispatch/get_sale_order_lines', type='json', auth="public", methods=['POST'], website=True)
     def get_sale_order_lines(self, partner_id=False, **kw):
-        res= {}
-        order_ids=[]
-        order_names=[]
+        res = {}
+        order_ids = []
+        order_names = []
         if partner_id:
             sale_order_lines = request.env['sale.order.line'].search(
                 [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', int(partner_id))]
@@ -107,13 +120,10 @@ class DispatchRequestsController(http.Controller):
             res['names'] = order_names
         return res
 
-
-
     @http.route('/dispatch/validate', type='http', auth="user", website=True)
     def dispatch_validate(self, page=0, category=None, topic=None, search='', ppg=False, **post):
         default = request.env['res.config.settings'].sudo().get_values()
         errors, error_msg = self.checkout_form_validate(post)
-
         partner_id = request.env.user.partner_id.id
         if errors:
             sale_order_lines = request.env['sale.order.line'].search(
@@ -154,14 +164,17 @@ class DispatchRequestsController(http.Controller):
         # if request.env.user.partner_id.id == request.website.user_id.sudo().partner_id.id:
         #     return request.render("website_helpdesk_system.login_required", {})
         request.context = dict(request.context, partner=request.env.user.partner_id)
-
         #if request.env.ref('base.group_system') in request.env.user.groups_id:
-        partner_ids = request.env['res.partner'].search([])
-        # ids = []
-        # for group in request.env.user.groups_id:
-        #     ids.append(group.id)
-        # if request.env.ref('base.group_system').id in ids:
-        #     partner_id = 3741
+        partner_ids = []
+        ids = []
+        for group in request.env.user.groups_id:
+            ids.append(group.id)
+        if request.env.ref('website_dispatch_requests.group_dispatch_partner_request').id in ids:
+            empresas_permitidas_ids = []
+            if request.env.user.partner_request_ids:
+                for empresa in request.env.user.partner_request_ids:
+                    empresas_permitidas_ids.append(empresa.id)
+                partner_ids = request.env['res.partner'].search([('id', 'in', empresas_permitidas_ids)])
 
 
         sale_order_lines = request.env['sale.order.line'].search(

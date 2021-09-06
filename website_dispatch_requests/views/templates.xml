@@ -25,7 +25,6 @@
                                             </button>
                                         </div>
                                         <div class="container">
-
                                             <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="partner_ids" >Seleccionar Cliente</label>
                                                 <select id="partner_ids" name="partner_ids"
@@ -33,12 +32,14 @@
                                                     <option value="">Cliente...</option>
                                                     <t t-foreach="partner_ids" t-as="partner">
                                                         <option t-att-value="partner.id"
+                                                                t-att-data-partner_id="partner.id"
                                                                 t-att-selected="partner.id == (partner and partner.id or -1)">
-                                                            <t t-esc="partner.name"/>
+                                                                <t t-esc="partner.display_name" />
                                                         </option>
                                                     </t>
                                                 </select>
-
+                                            </div>
+                                            <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
                                                        t-att-value="'task_title' in checkout and checkout['task_title']"
@@ -79,7 +80,7 @@
                                                 <label class="control-label" for="sale_order_id">Seleccionar Órdenes de Compra</label>
                                                 <select id="sale_order_id" name="sale_order_id"
                                                         t-attf-class="form-control #{error.get('sale_order_id') and 'is-invalid' or ''}">
-                                                    <option value="-1">Pedidos...</option>
+                                                    <option value='0'>Pedidos...</option>
                                                     <t t-foreach="sale_order_ids" t-as="order">
                                                         <option t-att-value="order.id"
                                                                 t-att-selected="order.id == (order and order.id or -1)">
@@ -101,8 +102,8 @@
                                                             <t t-esc="line.name"/>
                                                         </option>
                                                     </t>
-
                                                 </select>
+
                                             </div>
 
                                             <div class="row">

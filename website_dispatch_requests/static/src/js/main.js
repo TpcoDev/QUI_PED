@@ -7,6 +7,11 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
     var time = require('web.time');
     const ajax = require('web.ajax');
 
+//    document.getElementById("partner_ids");
+//    slcchange.addEventListener("change", function() {
+//    console.log(slcchange.value)
+//    });
+
     publicWidget.registry.dispatchForm = publicWidget.Widget.extend({
         selector: '.o_dispatch_form',
         events: {
@@ -20,8 +25,8 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          */
         init: function () {
             this._super.apply(this, arguments);
+            this._changePartner = _.debounce(this._changePartner.bind(this), 500);
             this._changeTaskTitle = _.debounce(this._changeTaskTitle.bind(this), 500);
-            this._changeCantidadPendiente = _.debounce(this._changeCantidadPendiente.bind(this), 500);
         },
         /**
          * @override
@@ -32,7 +37,8 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
             this.$order = this.$('select[name="sale_order_id"]');
             this.$line = this.$('select[name="line_id"]');
             this.$partner = this.$('select[name="partner_ids"]');
-            this.$lineOptions = this.$line.filter(':enabled').find('option:not(:first)');
+//            this.$lineOptions = this.$line.filter(':enabled').find('option:not(:first)');
+            this.$partnerOptions = this.$partner.filter(':enabled').find('option:not(:first)');
             this.$datetimepicker = $('#datetimepicker4');
             this.$cantidadPendiente = $('input[name="cantidad_pendiente"]');
             this.$cantidadSolicitada = $('input[name="cantidad"]')
@@ -83,11 +89,19 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _adaptOrderForm: function () {
-            var $orderID = (this.$order.val() || 0);
-            this.$lineOptions.detach();
-            var $displayedLine = this.$lineOptions.filter('[data-order_id=' + $orderID + ']');
-            var nb = $displayedLine.appendTo(this.$line).show().length;
-            this.$line.parent().toggle(nb >= 1);
+//            var $orderID = (this.$order.val() || 0);
+//            this.$lineOptions.detach();
+//            var $displayedLine = this.$lineOptions.filter('[data-order_id=' + $orderID + ']');
+//            var nb = $displayedLine.appendTo(this.$line).show().length;
+//            this.$line.parent().toggle(nb >= 1);
+
+            var $partnerID = (this.$partner.val() || 0);
+            this.$partnerOptions.detach();
+            var $displayedLine = this.$partnerOptions.filter('[data-partner_id != -1]');
+            var nb = $displayedLine.appendTo(this.$partner).show().length;
+            this.$partner.parent().toggle(nb >= 1);
+
+
         },
 
         /**
@@ -96,6 +110,28 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
         _onOrderChange: function () {
             this._adaptOrderForm();
             this._changeTaskTitle();
+
+            this._rpc({
+                route: "/dispatch/get_products/",
+                params: {
+                    order_line_id: this.$order.val(),
+                },
+            }).then(function (data) {
+                var select = document.getElementById("line_id");
+                var length = select.options.length;
+                for (i = length-1; i >= 0; i--) {
+                      select.remove(i);
+                 }
+                select.innerHTML += "<option value=-1>Producto...</option>";
+                if (data['ids'])
+                    for(var i in data['ids'])
+                        {
+                            select.innerHTML += "<option value='"+data['ids'][i]+"'>"+data['names'][i]+"</option>";
+                        }
+
+            });
+
+
         },
 
         /**
@@ -106,6 +142,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
             console.log('Sale line', this.$line);
             this._changeTaskTitle();
             this._changeCantidadPendiente();
+
         },
 
         /**
@@ -153,7 +190,6 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          */
         _changeTaskTitle: function () {
             var self = this;
-
             this._rpc({
                 route: "/dispatch/get_title/",
                 params: {
@@ -188,12 +224,21 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 for (i = length-1; i >= 0; i--) {
                       select.remove(i);
                  }
-                select.innerHTML += "<option value=-1>Pedidos...</option>";
-                if (data['ids'].length > 0)
+                select.innerHTML += "<option value=0>Pedidos...</option>";
+                if (data['ids'])
                     for(var i in data['ids'])
                         {
                             select.innerHTML += "<option value='"+data['ids'][i]+"'>"+data['names'][i]+"</option>";
                         }
+                var select = document.getElementById("line_id");
+                var length = select.options.length;
+                for (i = length-1; i >= 0; i--) {
+                      select.remove(i);
+                 }
+                select.innerHTML += "<option value=0>Producto...</option>";
+                var taskTitle = $("input[name='task_title']");
+                taskTitle.attr('value', '');
+                var cantidadTitle = $("input[name='cantidad']");
 
             });
 
