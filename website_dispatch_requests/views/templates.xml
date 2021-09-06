@@ -134,7 +134,7 @@
                                                     <option value="">Dirección de Entrega...</option>
                                                     <t t-foreach="delivery_ids" t-as="delivery">
                                                         <option t-att-value="delivery.id"
-                                                                t-att-data-delivery_id="delivery.id"
+                                                                t-att-data-delivery_id="delivery.parent_id.id"
                                                                 t-att-selected="delivery.id == (delivery and delivery.id or -1)">
                                                             <t t-esc="delivery.display_name"/>
                                                         </option>

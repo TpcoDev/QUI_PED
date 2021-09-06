@@ -36,9 +36,11 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
 
             this.$order = this.$('select[name="sale_order_id"]');
             this.$line = this.$('select[name="line_id"]');
+            this.$delivery = this.$('select[name="delivery_ids"]');
             this.$partner = this.$('select[name="partner_ids"]');
 //            this.$lineOptions = this.$line.filter(':enabled').find('option:not(:first)');
             this.$partnerOptions = this.$partner.filter(':enabled').find('option:not(:first)');
+            this.$deliveryOptions = this.$delivery.filter(':enabled').find('option:not(:first)');
             this.$datetimepicker = $('#datetimepicker4');
             this.$cantidadPendiente = $('input[name="cantidad_pendiente"]');
             this.$cantidadSolicitada = $('input[name="cantidad"]')
@@ -117,18 +119,16 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                     order_line_id: this.$order.val(),
                 },
             }).then(function (data) {
-                var select = document.getElementById("line_id");
-                var length = select.options.length;
-                for (i = length-1; i >= 0; i--) {
-                      select.remove(i);
-                 }
-                select.innerHTML += "<option value=-1>Producto...</option>";
-                if (data['ids'])
-                    for(var i in data['ids'])
-                        {
-                            select.innerHTML += "<option value='"+data['ids'][i]+"'>"+data['names'][i]+"</option>";
-                        }
+                debugger;
+                var linesSelect = $('#line_id');
+                if (data['ids']) {
+                    linesSelect.html('');
+                    for (var i in data['ids']) {
+                        var opt = $('<option>').text(data['names'][i]).attr('value', data['ids'][i]);
+                        linesSelect.append(opt);
 
+                    }
+                }
             });
 
 
@@ -152,6 +152,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
         _onPartnerChange: function (ev) {
             console.log('Partner', this.$partner);
             this._changePartner();
+            this._changeAddress();
         },
 
         /**
@@ -212,7 +213,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
         _changePartner: function () {
             var self = this;
             var partner = $("input[name='partner_id']");
-                partner.attr('value', this.$partner.val());
+            partner.attr('value', this.$partner.val());
 
             this._rpc({
                 route: "/dispatch/get_sale_order_lines/",
@@ -222,26 +223,34 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
             }).then(function (data) {
                 var select = document.getElementById("sale_order_id");
                 var length = select.options.length;
-                for (i = length-1; i >= 0; i--) {
-                      select.remove(i);
-                 }
+                for (i = length - 1; i >= 0; i--) {
+                    select.remove(i);
+                }
                 select.innerHTML += "<option value=0>Pedidos...</option>";
                 if (data['ids'])
-                    for(var i in data['ids'])
-                        {
-                            select.innerHTML += "<option value='"+data['ids'][i]+"'>"+data['names'][i]+"</option>";
-                        }
+                    for (var i in data['ids']) {
+                        select.innerHTML += "<option value='" + data['ids'][i] + "'>" + data['names'][i] + "</option>";
+                    }
                 var select = document.getElementById("line_id");
                 var length = select.options.length;
-                for (i = length-1; i >= 0; i--) {
-                      select.remove(i);
-                 }
+                for (i = length - 1; i >= 0; i--) {
+                    select.remove(i);
+                }
                 select.innerHTML += "<option value=0>Producto...</option>";
                 var taskTitle = $("input[name='task_title']");
                 taskTitle.attr('value', '');
                 self.$cantidadPendiente.attr('value', 0);
             });
 
+        },
+
+        _changeAddress: function () {
+            var self = this;
+            var $partnerID = (this.$partner.val() || 0);
+            this.$deliveryOptions.detach();
+            var $displayedLine = this.$deliveryOptions.filter('[data-delivery_id=' + $partnerID + ']');
+            var nb = $displayedLine.appendTo(this.$delivery).show().length;
+            this.$delivery.parent().toggle(nb >= 1);
         },
 
         /**

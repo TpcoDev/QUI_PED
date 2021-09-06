@@ -107,9 +107,12 @@ class DispatchRequestsController(http.Controller):
 
     @http.route('/dispatch/get_sale_order_lines', type='json', auth="public", methods=['POST'], website=True)
     def get_sale_order_lines(self, partner_id=False, **kw):
-        res = {}
+
         order_ids = []
         order_names = []
+        res = {
+            'ids': order_ids, 'names': order_names
+        }
         partner_id = partner_id if partner_id else request.env.user.partner_id.id
         if partner_id:
             sale_order_lines = request.env['sale.order.line'].search(
@@ -124,9 +127,9 @@ class DispatchRequestsController(http.Controller):
                 if cantidad > 0:
                     order_ids.append(sale_order.order_id.id)
                     order_names.append(sale_order.order_id.client_order_ref + ' -' + sale_order.order_id.name)
-            res['ids'] = order_ids
-            res['names'] = order_names
-        print(res)
+            # res.update({
+            #     'ids': order_ids, 'names': order_names
+            # })
         return res
 
     @http.route('/dispatch/validate', type='http', auth="user", website=True)
@@ -138,8 +141,8 @@ class DispatchRequestsController(http.Controller):
             sale_order_lines = request.env['sale.order.line'].search(
                 [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', partner_id)]
             ).filtered(lambda r: r.qty_delivered < r.product_uom_qty)
-            product_ids = sale_order_lines.mapped('product_id')
-            sale_order_ids = sale_order_lines.mapped('order_id')
+            product_ids = sale_order_lines.sudo().mapped('product_id')
+            sale_order_ids = sale_order_lines.sudo().mapped('order_id')
 
             partner_ids = []
             ids = []
@@ -181,8 +184,7 @@ class DispatchRequestsController(http.Controller):
         mode = False
         checkout_values, errors = {}, {}
         partner_id = request.env.user.partner_id.id
-        # if request.env.user.partner_id.id == request.website.user_id.sudo().partner_id.id:
-        #     return request.render("website_helpdesk_system.login_required", {})
+
         request.context = dict(request.context, partner=request.env.user.partner_id)
         # if request.env.ref('base.group_system') in request.env.user.groups_id:
         partner_ids = []
