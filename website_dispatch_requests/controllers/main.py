@@ -61,7 +61,7 @@ class DispatchRequestsController(http.Controller):
             name = order_id.name
         if order_line_id:
             if self.comprobar_user():
-                order_line_id = request.env['sale.order.line'].search([('id','=',int(order_line_id))])
+                order_line_id = request.env['sale.order.line'].search([('id', '=', int(order_line_id))])
             else:
                 order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
             default_code = order_line_id.product_id.default_code
@@ -96,7 +96,7 @@ class DispatchRequestsController(http.Controller):
         order_ids = []
         order_names = []
         if order_line_id:
-            order_line_id = request.env['sale.order.line'].sudo().search([('order_id','=',int(order_line_id))])
+            order_line_id = request.env['sale.order.line'].sudo().search([('order_id', '=', int(order_line_id))])
             for product in order_line_id:
                 order_ids.append(product.id)
                 order_names.append(product.name)
@@ -110,6 +110,7 @@ class DispatchRequestsController(http.Controller):
         res = {}
         order_ids = []
         order_names = []
+        partner_id = partner_id if partner_id else request.env.user.partner_id.id
         if partner_id:
             sale_order_lines = request.env['sale.order.line'].search(
                 [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', int(partner_id))])
