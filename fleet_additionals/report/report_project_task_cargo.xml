@@ -34,7 +34,7 @@
             <t t-call="web.html_container">
                     <t t-call="web.external_layout">
                             <div class="page">
-                                <t t-foreach="docs" t-as="o">
+                                <t t-foreach="docs[0]" t-as="o">
                                     <h2 class="text-center">Solicitud de carga Planta San Fernando</h2>
                                     <table class="table table-bordered mt32">
                                         <thead>
@@ -61,27 +61,32 @@
                                                 </tr>
                                             </thead>
                                         <tbody>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <span t-field="o.dia_operacion"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.chofer_camion"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.remolque_id.rut_chofer_camion"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.patente_camion_tracto"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.patente_remolque"/>
-                                                    </td>
-                                                    <td>
-                                                        <span />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <t t-foreach="docs[1]" t-as="remolque">
+                                               <t t-if="remolque[5] == o">
+                                                    <tr class="text-center">
+                                                        <td>
+                                                            <span t-esc="remolque[0]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="remolque[1]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="remolque[2]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="remolque[3]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="remolque[4]"/>
+                                                        </td>
+                                                        <td>
+                                                           <span />
+                                                        </td>
+
+                                                    </tr>
+                                               </t>
+                                            </t>
+                                        </tbody>
                                     </table>
 
                                     <table class="table table-bordered mt32">
@@ -122,43 +127,45 @@
                                             </thead>
                                         <tbody>
                                             <t t-set="cant_total" t-value="0"/>
-                                            <t t-foreach="o.sale_order_id.order_line" t-as="sale_order">
-                                                <tr class="text-center">
-                                                    <td>
+                                            <t t-foreach="docs[2]" t-as="sale_order">
+                                               <t t-if="sale_order[6] == o">
+                                                    <tr class="text-center">
+                                                        <td>
 
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="sale_order.product_id.barcode"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="sale_order.product_id.name"/>
-                                                    </td>
-                                                    <td>
-                                                        <t t-set="cantidad_despachar" t-value="o.cantidad_despachar"/>
-                                                        <span t-esc="cantidad_despachar" />
-                                                        <t t-set="cant_total" t-value="cant_total + cantidad_despachar"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="sale_order.product_id.uom_id.name"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.partner_id.display_name"/>
-                                                    </td>
-                                                    <td>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="sale_order[0]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="sale_order[1]"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-set="cantidad_despachar" t-value="sale_order[2]"/>
+                                                            <span t-esc="cantidad_despachar" />
+                                                            <t t-set="cant_total" t-value="cant_total + cantidad_despachar"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="sale_order[3]"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="sale_order[4]"/>
+                                                        </td>
+                                                        <td>
 
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.sale_order_id.client_order_ref"/>
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="sale_order[5]"/>
+                                                        </td>
+                                                        <td>
+                                                                <span />
+                                                        </td>
+                                                        <td>
+                                                                <span />
+                                                        </td>
+                                                    </tr>
+                                               </t>
                                             </t>
-                                                <tr>
+                                            <tr>
                                                     <td colspan="3" style="text-align:center;">
                                                         <span>Total</span>
                                                     </td>
@@ -185,10 +192,11 @@
                                                 </tr>
                                             </thead>
                                         <tbody>
-                                            <t t-foreach="o.sale_order_id.order_line" t-as="sale_order">
-                                                <tr class="text-center">
+                                            <t t-foreach="docs[3]" t-as="product">
+                                               <t t-if="product[1] == o">
+                                                    <tr class="text-center">
                                                     <td>
-                                                        <span t-field="sale_order.product_id.barcode"/>
+                                                        <span t-esc="product[0]"/>
                                                     </td>
                                                     <td>
 
@@ -198,6 +206,7 @@
                                                     </td>
 
                                                 </tr>
+                                               </t>
                                             </t>
                                         </tbody>
                                     </table>
@@ -205,15 +214,16 @@
                                     <span>Observaciones</span>
                                     <table style="padding-top: 16px;" class="table table-bordered mt32">
                                         <tbody>
-                                            <t t-foreach="o.partner_id.child_ids" t-as="contacto">
-                                                <tr class="text-center">
-                                                    <td style="text-align: left;">
-                                                        <span>Contacto</span>
-                                                        <span t-field="contacto.name"/>
-                                                        <span t-field="contacto.mobile"/>
-                                                    </td>
+                                            <t t-foreach="docs[4]" t-as="contact">
+                                                <t t-if="contact[1] == o">
+                                                    <tr class="text-center">
+                                                        <td style="text-align: left;">
+                                                            <span>Contacto</span>
+                                                            <span t-esc="contact[0]"/>
+                                                        </td>
 
-                                                </tr>
+                                                    </tr>
+                                                </t>
                                             </t>
                                         </tbody>
                                     </table>
