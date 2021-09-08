@@ -122,11 +122,15 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 var linesSelect = $('#line_id');
                 if (data['ids']) {
                     linesSelect.html('');
+                    var opt = $('<option>').text('Producto...').attr('value', '-1');
+                        linesSelect.append(opt);
                     for (var i in data['ids']) {
                         var opt = $('<option>').text(data['names'][i]).attr('value', data['ids'][i]);
                         linesSelect.append(opt);
 
                     }
+                    var cantidad_pendiente = $("input[name='cantidad_pendiente']");
+                    cantidad_pendiente.attr('value', 0);
                 }
 
             });

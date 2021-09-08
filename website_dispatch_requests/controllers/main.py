@@ -55,28 +55,29 @@ class DispatchRequestsController(http.Controller):
     @http.route('/dispatch/get_title', type='json', auth="public", methods=['POST'], website=True)
     def get_task_title(self, order_sale_id=False, order_line_id=False, qty=False, **kw):
         title = name = default_code = product_uom_name = ''
-        product_uom_qty = -1
-        if order_sale_id:
-            order_id = request.env['sale.order'].sudo().browse(int(order_sale_id))
-            name = order_id.name
-        if order_line_id:
-            if self.comprobar_user():
-                order_line_id = request.env['sale.order.line'].search([('id', '=', int(order_line_id))])
-            else:
-                order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
-            default_code = order_line_id.product_id.default_code
-            product_uom_name = order_line_id.product_uom.name
-        if qty:
-            product_uom_qty = qty
-        if name:
-            title += f'{name}'
-        if default_code:
-            title += f'-{default_code}'
-        if product_uom_qty != -1:
-            title += f'-{product_uom_qty}'
-        if product_uom_name:
-            title += f'-{product_uom_name}'
-        self.get_cantidad(order_line_id)
+        if order_line_id != '-1':
+            product_uom_qty = -1
+            if order_sale_id:
+                order_id = request.env['sale.order'].sudo().browse(int(order_sale_id))
+                name = order_id.name
+            if order_line_id:
+                if self.comprobar_user():
+                    order_line_id = request.env['sale.order.line'].search([('id', '=', int(order_line_id))])
+                else:
+                    order_line_id = request.env['sale.order.line'].sudo().browse(int(order_line_id))
+                default_code = order_line_id.product_id.default_code
+                product_uom_name = order_line_id.product_uom.name
+            if qty:
+                product_uom_qty = qty
+            if name:
+                title += f'{name}'
+            if default_code:
+                title += f'-{default_code}'
+            if product_uom_qty != -1:
+                title += f'-{product_uom_qty}'
+            if product_uom_name:
+                title += f'-{product_uom_name}'
+            self.get_cantidad(order_line_id)
         return title
 
     @http.route('/dispatch/get_cantidad', type='json', auth="public", methods=['POST'], website=True)
