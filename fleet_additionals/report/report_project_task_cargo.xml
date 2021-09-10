@@ -151,7 +151,7 @@
                                                             <span t-esc="sale_order[4]"/>
                                                         </td>
                                                         <td style="width: 280px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
-
+                                                                <span t-esc="sale_order[7]"/>
                                                         </td>
                                                         <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[5]"/>
@@ -186,7 +186,7 @@
                                                     <th style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Lote</span>
                                                     </th>
-                                                    <th style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Fecha de vencimiento</span>
                                                     </th>
                                                 </tr>
@@ -201,7 +201,7 @@
                                                     <td style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
 
                                                     </td>
-                                                    <td style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td style="width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
 
                                                     </td>
 
@@ -216,8 +216,8 @@
                                         <tbody>
                                             <t t-foreach="docs[4]" t-as="contact">
                                                 <t t-if="contact[1] == o">
-                                                    <tr style="high: 80px;" class="text-center">
-                                                        <td style="text-align: left; width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <tr >
+                                                        <td style="text-align: left; width: 1310px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span>Contacto</span>
                                                             <span t-esc="contact[0]"/>
                                                         </td>

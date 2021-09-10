@@ -40,15 +40,22 @@ class ReportProjectTaskCargo(models.AbstractModel):
                 for sale_order in docs[pos].sale_order_id.order_line:
                     segunda_tabla.append((sale_order.product_id.default_code, sale_order.product_id.name, docs[pos].cantidad_despachar,
                                               sale_order.product_id.uom_id.name, docs[pos].partner_id.display_name,
-                                              docs[pos].sale_order_id.client_order_ref,cant_pages))
+                                              docs[pos].sale_order_id.client_order_ref,cant_pages,docs[pos].partner_id.city))
                     tercera_tabla.append((sale_order.product_id.default_code,cant_pages))
-                # segunda_tabla.append(sale_order_line)
-                for contact in docs[pos].partner_id.child_ids:
-                    if contact.mobile:
-                        name = contact.name + ' '+ contact.mobile
+                    if docs[pos].partner_id.mobile:
+                        name = docs[pos].partner_id.street + ' ' + docs[pos].partner_id.mobile
+                    elif docs[pos].partner_id.phone:
+                        name = docs[pos].partner_id.street + ' ' + docs[pos].partner_id.phone
                     else:
-                        name = contact.name
+                        name = docs[pos].partner_id.street
                     cuarta_tabla.append((name,cant_pages))
+                # segunda_tabla.append(sale_order_line)
+                # for contact in docs[pos].partner_id.child_ids:
+                #     if contact.mobile:
+                #
+                #     else:
+                #         name = contact.name
+                #     cuarta_tabla.append((name,cant_pages))
             cant_pages += 1
 
         res.append(pages)
