@@ -43,12 +43,10 @@ class ReportProjectTaskCargo(models.AbstractModel):
                                               docs[pos].sale_order_id.client_order_ref,cant_pages,docs[pos].partner_id.city))
                     tercera_tabla.append((sale_order.product_id.default_code,cant_pages))
                     if docs[pos].partner_id.mobile:
-                        name = docs[pos].partner_id.street + ' Móvil: ' + docs[pos].partner_id.mobile
-                    elif docs[pos].partner_id.phone:
-                        name = docs[pos].partner_id.street + ' Teléfono: ' + docs[pos].partner_id.phone
+                        name = docs[pos].partner_id.name + '---Móvil: ' + docs[pos].partner_id.mobile
                     else:
-                        name = docs[pos].partner_id.street
-                    if not cuarta_tabla.index((name,cant_pages)):
+                        name = docs[pos].partner_id.name
+                    if not (name,cant_pages) in cuarta_tabla:
                         cuarta_tabla.append((name,cant_pages))
                 # segunda_tabla.append(sale_order_line)
                 # for contact in docs[pos].partner_id.child_ids:
