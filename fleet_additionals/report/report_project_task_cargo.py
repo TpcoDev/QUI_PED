@@ -21,7 +21,7 @@ class ReportProjectTaskCargo(models.AbstractModel):
         for task in docs:
             if task.planification == 'planifica' and task.patente_remolque and task.status == 'completado':
                 ids_to_print.append(task.id)
-                remolques.append(task.patente_remolque)
+                remolques.append((task.patente_remolque,task.dia_operacion))
         docs = self.env['project.task'].browse(ids_to_print)
 
         ubicaciones = defaultdict(list)
