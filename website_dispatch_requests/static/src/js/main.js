@@ -110,6 +110,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _onOrderChange: function () {
+            debugger;
             this._adaptOrderForm();
             this._changeTaskTitle();
 
@@ -123,7 +124,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
                 if (data['ids']) {
                     linesSelect.html('');
                     var opt = $('<option>').text('Producto...').attr('value', '-1');
-                        linesSelect.append(opt);
+                    linesSelect.append(opt);
                     for (var i in data['ids']) {
                         var opt = $('<option>').text(data['names'][i]).attr('value', data['ids'][i]);
                         linesSelect.append(opt);
@@ -143,6 +144,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @param {Event} ev
          */
         _onLineChange: function (ev) {
+            debugger;
             console.log('Sale line', this.$line);
             this._changeTaskTitle();
             this._changeCantidadPendiente();
@@ -150,6 +152,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
         },
 
         _changeAddress: function () {
+            debugger;
             var self = this;
             var $partnerID = (this.$partner.val() || 0);
             this.$deliveryOptions.detach();
@@ -163,6 +166,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @param {Event} ev
          */
         _onPartnerChange: function (ev) {
+            debugger;
             console.log('Partner', this.$partner);
             this._changePartner()
             this._changeAddress();
@@ -174,6 +178,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @param {Event} ev
          */
         _onCantidadChange: function (ev) {
+            debugger;
             var self = this;
 
             if (parseInt(this.$cantidadSolicitada.val()) < 0 ||
@@ -204,6 +209,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _changeTaskTitle: function () {
+            debugger;
             var self = this;
             this._rpc({
                 route: "/dispatch/get_title/",
@@ -225,9 +231,13 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _changePartner: function () {
+            debugger;
             var self = this;
             var partner = $("input[name='partner_id']");
-            partner.attr('value', this.$partner.val());
+            if (this.$partner.val()) {
+                partner.attr('value', this.$partner.val());
+            }
+
 
             this._rpc({
                 route: "/dispatch/get_sale_order_lines/",
@@ -262,6 +272,7 @@ odoo.define('website_dispatch_requests.website_portal', function (require) {
          * @private
          */
         _changeCantidadPendiente: function () {
+            debugger;
             var self = this;
 
             this._rpc({

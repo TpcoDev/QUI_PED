@@ -120,7 +120,7 @@ class ProjectTask(models.Model):
                 })
 
                 if vals.get('delivery_ids', False) and vals['delivery_ids']:
-                    partner = int(values['delivery_ids'])
+                    partner = int(vals['delivery_ids'])
                     task.sale_line_id.move_ids[-1].picking_id.write({'partner_id': partner})
 
                 return {
