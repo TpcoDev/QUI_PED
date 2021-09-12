@@ -27,7 +27,7 @@ class ReportProjectTaskCargo(models.AbstractModel):
         ubicaciones = defaultdict(list)
         for index in range(len(remolques)):
             ubicaciones[remolques[index]].append(index)
-
+    
         cant_pages = 0
         for element in ubicaciones.items():
             pages.append(cant_pages)
@@ -38,10 +38,11 @@ class ReportProjectTaskCargo(models.AbstractModel):
                 # sale_order_line = []
                 # contactos = []
                 for move in docs[pos].picking_id.move_lines:
-                    segunda_tabla.append((move.product_id.default_code, move.product_id.name, move.product_uom_qty,
-                                              move.product_id.uom_id.name, docs[pos].partner_id.display_name,
-                                              docs[pos].sale_order_id.client_order_ref,cant_pages,docs[pos].partner_id.city))
-                    tercera_tabla.append((move.product_id.default_code,cant_pages))
+                    if move.product_uom_qty > 0:
+                        segunda_tabla.append((move.product_id.default_code, move.product_id.name, move.product_uom_qty,
+                                                  move.product_id.uom_id.name, docs[pos].partner_id.display_name,
+                                                  docs[pos].sale_order_id.client_order_ref,cant_pages,docs[pos].partner_id.city))
+                        tercera_tabla.append((move.product_id.default_code,cant_pages))
                     if docs[pos].partner_id.mobile:
                         name = docs[pos].partner_id.name + '---Móvil: ' + docs[pos].partner_id.mobile
                     else:
