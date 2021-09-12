@@ -19,11 +19,11 @@ class ReportProjectTaskCargo(models.AbstractModel):
         cuarta_tabla = []
         res = []
         for task in docs:
-            if task.planification == 'planifica' and task.patente_remolque and task.status == 'completado':
+            if task.planification == 'planifica' and task.patente_remolque and task.status == 'completado' and \
+                    (task.picking_id.state == 'assigned' or task.picking_id.state == 'done'):
                 ids_to_print.append(task.id)
                 remolques.append((task.patente_remolque,task.dia_operacion))
         docs = self.env['project.task'].browse(ids_to_print)
-
         ubicaciones = defaultdict(list)
         for index in range(len(remolques)):
             ubicaciones[remolques[index]].append(index)
@@ -37,11 +37,11 @@ class ReportProjectTaskCargo(models.AbstractModel):
             for pos in element[1]:
                 # sale_order_line = []
                 # contactos = []
-                for sale_order in docs[pos].sale_order_id.order_line:
-                    segunda_tabla.append((sale_order.product_id.default_code, sale_order.product_id.name, docs[pos].cantidad_despachar,
-                                              sale_order.product_id.uom_id.name, docs[pos].partner_id.display_name,
+                for move in docs[pos].picking_id.move_lines:
+                    segunda_tabla.append((move.product_id.default_code, move.product_id.name, move.product_uom_qty,
+                                              move.product_id.uom_id.name, docs[pos].partner_id.display_name,
                                               docs[pos].sale_order_id.client_order_ref,cant_pages,docs[pos].partner_id.city))
-                    tercera_tabla.append((sale_order.product_id.default_code,cant_pages))
+                    tercera_tabla.append((move.product_id.default_code,cant_pages))
                     if docs[pos].partner_id.mobile:
                         name = docs[pos].partner_id.name + '---Móvil: ' + docs[pos].partner_id.mobile
                     else:
