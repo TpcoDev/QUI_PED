@@ -34,6 +34,7 @@
             <t t-call="web.html_container">
                     <t t-call="web.external_layout">
                             <div class="page">
+                                <t t-set="cant_page" t-value="0"/>
                                 <t t-foreach="docs[0]" t-as="o">
                                     <h2 class="text-center">Solicitud de carga Planta San Fernando</h2>
                                     <table style="margin-bottom:20px;">
@@ -229,7 +230,10 @@
                                     </table>
 
                                     <p style="page-break-after: always;"/>
-                                    <h2 class="text-center">Solicitud de carga Planta San Fernando</h2>
+                                    <t t-set="cant_page" t-value="cant_page + 1"/>
+                                    <t t-if="cant_page != len(docs[0])">
+                                        <h2 class="text-center">Solicitud de carga Planta San Fernando</h2>
+                                    </t>
 
                                 </t>
                             </div>
