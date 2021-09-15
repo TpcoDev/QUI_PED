@@ -28,7 +28,7 @@ class ProjectTask(models.Model):
         readonly=True
     )
 
-    planification_hora_date = fields.Datetime(string=_('Fecha y hora Planificación'))
+    planification_hora_date = fields.Datetime(string=_('Fecha y hora Planificación'), default=fields.Datetime.now())
     planification = fields.Selection(
         selection=[('planifica', _('Planifica')), ('no_planifica', _('No Planifica')), ('pendiente', _('Pendiente'))],
         string='Planificación', default='planifica'
@@ -64,7 +64,8 @@ class ProjectTask(models.Model):
                 ('is_fsm', '=', True), ('partner_id', '=', int(values['partner_id']))
             ], limit=1)
             vals.update({
-                'project_id': project_id.id
+                'project_id': project_id.id,
+                'partner_id': int(values['partner_id'])
             })
 
         if values.get('task_title', False):
@@ -95,12 +96,7 @@ class ProjectTask(models.Model):
                 'cantidad_despachar': values['cantidad'],
             })
 
-        if values.get('partner_ids', False) and values['partner_ids']:
-            partner = int(values['partner_ids'])
-        else:
-            partner = int(values['partner_id'])
-
-        vals.update({'planification': 'pendiente', 'partner_id': partner})
+        vals.update({'planification': 'pendiente'})
         return vals
 
     @api.model
@@ -114,10 +110,14 @@ class ProjectTask(models.Model):
                 dispatch_qty = task.sale_line_id.product_uom_qty - task.cantidad_despachar
                 task.with_context({'dispatch_qty': dispatch_qty}).sale_line_id._action_launch_stock_rule()
 
-                task.write({
-                    'picking_id': task.sale_line_id.move_ids[-1].picking_id.id,
+                wrtVals = {
                     'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
-                })
+                }
+
+                if len(task.sale_line_id.move_ids):
+                    wrtVals.update({'picking_id': task.sale_line_id.move_ids[-1].picking_id.id})
+
+                task.write(wrtVals)
 
                 if vals.get('delivery_ids', False) and vals['delivery_ids']:
                     partner = int(vals['delivery_ids'])

@@ -17,6 +17,13 @@ class ResPartner(models.Model):
         readonly=True
     )
 
+    name_shipping = fields.Char(compute='_compute_name_shipping')
+
+    @api.depends('name', 'street')
+    def _compute_name_shipping(self):
+        for rec in self:
+            rec.name_shipping = f'{rec.name} - {rec.street}'
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

@@ -136,7 +136,7 @@
                                                         <option t-att-value="delivery.id"
                                                                 t-att-data-delivery_id="delivery.id"
                                                                 t-att-selected="delivery.id == (delivery and delivery.id or -1)">
-                                                            <t t-esc="delivery.display_name"/>
+                                                            <t t-esc="delivery.name_shipping"/>
                                                         </option>
                                                     </t>
                                                 </select>

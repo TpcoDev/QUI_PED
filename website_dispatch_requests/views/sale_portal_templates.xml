@@ -11,6 +11,14 @@
         <xpath expr="//div[@id='introduction']/h2/em" position="after">
             <t t-esc="sale_order.client_order_ref"/>
         </xpath>
+
+<!--        <xpath expr="//t[@t-if='sale_order.partner_shipping_id != sale_order.partner_invoice_id']"-->
+<!--               position="replace">-->
+<!--        </xpath>-->
+
+        <xpath expr="//div[@id='shipping_address']"
+               position="replace">
+        </xpath>
     </template>
 
     <template id="sale.portal_my_orders">
