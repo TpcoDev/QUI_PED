@@ -74,8 +74,8 @@ class ProjectTask(models.Model):
             d, m, Y = values["dispatch_date"].split('/')
             tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
             hours = self.env["ir.config_parameter"].sudo().get_param("horas_diferencias")
-            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=hours)
-            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=hours)
+            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=int(hours))
+            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=int(hours))
 
             vals.update({
                 'planned_date_begin': planned_date_begin,
@@ -117,11 +117,11 @@ class ProjectTask(models.Model):
                 if len(task.sale_line_id.move_ids):
                     wrtVals.update({'picking_id': task.sale_line_id.move_ids[-1].picking_id.id})
 
-                task.write(wrtVals)
+                    if vals.get('delivery_ids', False) and vals['delivery_ids']:
+                        partner = int(vals['delivery_ids'])
+                        task.sale_line_id.move_ids[-1].picking_id.write({'partner_id': partner})
 
-                if vals.get('delivery_ids', False) and vals['delivery_ids']:
-                    partner = int(vals['delivery_ids'])
-                    task.sale_line_id.move_ids[-1].picking_id.write({'partner_id': partner})
+                task.write(wrtVals)
 
                 return {
                     'title': _('Task Created'),
