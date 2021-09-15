@@ -13,7 +13,7 @@
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Website/Website',
-    'version': '2.20210914',
+    'version': '2.20210914.2',
 
     # any module necessary for this one to work correctly
     'depends': [
@@ -30,7 +30,8 @@
         'views/project_task_views.xml',
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
-        'views/sale_portal_templates.xml'
+        'views/sale_portal_templates.xml',
+        'views/res_config_settings_views.xml'
 
     ],
 }

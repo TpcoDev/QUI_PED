@@ -73,9 +73,9 @@ class ProjectTask(models.Model):
         if values.get('dispatch_date', False):
             d, m, Y = values["dispatch_date"].split('/')
             tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
-
-            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=4)
-            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=4)
+            hours = self.env["ir.config_parameter"].sudo().get_param("horas_diferencias")
+            planned_date_begin = fields.Datetime.from_string(f'{Y}-{m}-{d} 00:00:00') + relativedelta(hours=hours)
+            planned_date_end = fields.Datetime.from_string(f'{Y}-{m}-{d} 23:59:00') + relativedelta(hours=hours)
 
             vals.update({
                 'planned_date_begin': planned_date_begin,
