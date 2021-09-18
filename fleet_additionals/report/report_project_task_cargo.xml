@@ -99,7 +99,7 @@
                                                     <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Código</span>
                                                     </th>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Descripción</span>
                                                     </th>
                                                     <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
@@ -108,10 +108,10 @@
                                                     <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>UM</span>
                                                     </th>
-                                                    <th style="width: 280px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="width: 180px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Cliente</span>
                                                     </th>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Destino</span>
                                                     </th>
                                                     <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
@@ -120,7 +120,7 @@
                                                     <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Coste Flete</span>
                                                     </th>
-                                                    <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Gd</span>
                                                     </th>
 
@@ -137,10 +137,10 @@
                                                         <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[0]"/>
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[1]"/>
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <t t-set="cantidad_despachar" t-value="sale_order[2]"/>
                                                             <span t-esc="cantidad_despachar" />
                                                             <t t-set="cant_total" t-value="cant_total + cantidad_despachar"/>
@@ -151,7 +151,7 @@
                                                         <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[4]"/>
                                                         </td>
-                                                        <td style="width: 280px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span t-esc="sale_order[7]"/>
                                                         </td>
                                                         <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
@@ -160,7 +160,7 @@
                                                         <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span />
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span />
                                                         </td>
                                                     </tr>
@@ -213,7 +213,7 @@
                                     </table>
 
                                     <span>Observaciones</span>
-                                    <table>
+                                    <table style="margin-bottom:40px;">
                                         <tbody>
                                             <t t-foreach="docs[4]" t-as="contact">
                                                 <t t-if="contact[1] == o">
@@ -226,6 +226,28 @@
                                                     </tr>
                                                 </t>
                                             </t>
+                                        </tbody>
+                                    </table>
+
+                                    <table>
+                                        <tbody>
+
+                                             <tr >
+                                                 <td>
+                                                    <span>Nombre:_______________________________________</span>
+                                                 </td>
+                                             </tr>
+                                            <tr>
+                                                 <td>
+                                                    <span>Rut:____________________________________________</span>
+                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                 <td>
+                                                    <span>Firma:__________________________________________</span>
+                                                 </td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
 

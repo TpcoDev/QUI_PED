@@ -27,7 +27,7 @@ class ReportProjectTaskCargo(models.AbstractModel):
         ubicaciones = defaultdict(list)
         for index in range(len(remolques)):
             ubicaciones[remolques[index]].append(index)
-    
+
         cant_pages = 0
         for element in ubicaciones.items():
             pages.append(cant_pages)
