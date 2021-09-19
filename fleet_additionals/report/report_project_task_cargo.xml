@@ -114,10 +114,10 @@
                                                     <th style="font-size: 11px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Destino</span>
                                                     </th>
-                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 160px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>OC</span>
                                                     </th>
-                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 100px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Coste Flete</span>
                                                     </th>
                                                     <th style="font-size: 11px; width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
@@ -154,10 +154,10 @@
                                                         <td style="font-size: 10px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span t-esc="sale_order[7]"/>
                                                         </td>
-                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 160px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[5]"/>
                                                         </td>
-                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 100px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span />
                                                         </td>
                                                         <td style="font-size: 10px; width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
