@@ -65,22 +65,22 @@
                                             <t t-foreach="docs[1]" t-as="remolque">
                                                <t t-if="remolque[5] == o">
                                                     <tr class="text-center">
-                                                        <td style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="remolque[0]"/>
                                                         </td>
-                                                        <td style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="remolque[1]"/>
                                                         </td>
-                                                        <td style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="remolque[2]"/>
                                                         </td>
-                                                        <td style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="remolque[3]"/>
                                                         </td>
-                                                        <td style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="remolque[4]"/>
                                                         </td>
-                                                        <td style="width: 210px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 210px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                            <span />
                                                         </td>
 
@@ -131,47 +131,47 @@
                                             <t t-foreach="docs[2]" t-as="sale_order">
                                                <t t-if="sale_order[6] == o">
                                                     <tr style="high: 80px;" class="text-center">
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
 
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[0]"/>
                                                         </td>
-                                                        <td style="width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[1]"/>
                                                         </td>
-                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <t t-set="cantidad_despachar" t-value="sale_order[2]"/>
                                                             <span t-esc="cantidad_despachar" />
                                                             <t t-set="cant_total" t-value="cant_total + cantidad_despachar"/>
                                                         </td>
-                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[3]"/>
                                                         </td>
-                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[4]"/>
                                                         </td>
-                                                        <td style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span t-esc="sale_order[7]"/>
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span t-esc="sale_order[5]"/>
                                                         </td>
-                                                        <td style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span />
                                                         </td>
-                                                        <td style="width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                                 <span />
                                                         </td>
                                                     </tr>
                                                </t>
                                             </t>
                                             <tr>
-                                                    <td colspan="3" style="text-align:center; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td colspan="3" style="font-size: 10px; text-align:center; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                         <span>Total</span>
                                                     </td>
 
-                                                    <td style="text-align:center; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td style="font-size: 10px; text-align:center; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                         <span t-esc="cant_total" />
                                                     </td>
                                                 </tr>
@@ -196,13 +196,13 @@
                                             <t t-foreach="docs[3]" t-as="product">
                                                <t t-if="product[1] == o">
                                                     <tr class="text-center">
-                                                    <td style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td style="font-size: 10px; width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                         <span t-esc="product[0]"/>
                                                     </td>
-                                                    <td style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td style="font-size: 10px; width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
 
                                                     </td>
-                                                    <td style="width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                    <td style="font-size: 10px; width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
 
                                                     </td>
 
@@ -218,7 +218,7 @@
                                             <t t-foreach="docs[4]" t-as="contact">
                                                 <t t-if="contact[1] == o">
                                                     <tr >
-                                                        <td style="text-align: left; width: 1310px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
+                                                        <td style="font-size: 10px; text-align: left; width: 1310px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;">
                                                             <span>Contacto</span>
                                                             <span t-esc="contact[0]"/>
                                                         </td>
