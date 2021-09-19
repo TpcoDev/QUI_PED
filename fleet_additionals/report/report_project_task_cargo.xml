@@ -40,22 +40,22 @@
                                     <table style="margin-bottom:20px;">
                                         <thead>
                                                 <tr >
-                                                    <th style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Fecha</span>
                                                     </th>
-                                                    <th style="width: 300px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 300px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Chofer</span>
                                                     </th>
-                                                    <th style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>RUT</span>
                                                     </th>
-                                                    <th style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Patente Camión</span>
                                                     </th>
-                                                    <th style="width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 200px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Patente Remolque</span>
                                                     </th>
-                                                    <th style="width: 210px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 210px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Transportes</span>
                                                     </th>
 
@@ -93,34 +93,34 @@
                                     <table style="margin-bottom:20px;">
                                         <thead>
                                                 <tr>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>C.Riesgo/UN</span>
                                                     </th>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Código</span>
                                                     </th>
-                                                    <th style="width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 350px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Descripción</span>
                                                     </th>
-                                                    <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Cantidad</span>
                                                     </th>
-                                                    <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>UM</span>
                                                     </th>
-                                                    <th style="width: 180px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 180px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Cliente</span>
                                                     </th>
-                                                    <th style="width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 80px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Destino</span>
                                                     </th>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>OC</span>
                                                     </th>
-                                                    <th style="width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 130px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Coste Flete</span>
                                                     </th>
-                                                    <th style="width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 60px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Gd</span>
                                                     </th>
 
@@ -181,13 +181,13 @@
                                     <table style="margin-bottom:20px;">
                                         <thead>
                                                 <tr>
-                                                    <th style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Código</span>
                                                     </th>
-                                                    <th style="width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 433px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Lote</span>
                                                     </th>
-                                                    <th style="width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
+                                                    <th style="font-size: 11px; width: 443px; height:30px; border:1px solid #e1e1e1; padding:0; margin:0;" class="text-center">
                                                         <span>Fecha de vencimiento</span>
                                                     </th>
                                                 </tr>
@@ -212,7 +212,7 @@
                                         </tbody>
                                     </table>
 
-                                    <span>Observaciones</span>
+                                    <span style="font-size: 11px;">Observaciones</span>
                                     <table style="margin-bottom:40px;">
                                         <tbody>
                                             <t t-foreach="docs[4]" t-as="contact">
