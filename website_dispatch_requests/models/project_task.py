@@ -111,7 +111,7 @@ class ProjectTask(models.Model):
                 task.with_context({'dispatch_qty': dispatch_qty}).sale_line_id._action_launch_stock_rule()
 
                 wrtVals = {
-                    'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.sale_line_id.product_uom_qty}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
+                    'description': f'{task.sale_order_id.name}-{task.sale_line_id.product_id.name}-{task.cantidad_despachar}-{task.sale_line_id.product_uom.name}-{vals["dispatch_date"]}-{vals["horarios_recepcion"]}'
                 }
 
                 if len(task.sale_line_id.move_ids):
