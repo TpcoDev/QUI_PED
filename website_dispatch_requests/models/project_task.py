@@ -131,8 +131,8 @@ class ProjectTask(models.Model):
         except Exception as e:
             _logger.info('=======%r', e)
             return {
-                'title': _('Tarea creada'),
-                'message': _('Su solicitud de despacho %s ha sido enviada con exito') % (vals['task_title'])
+                'title': _('Tarea no creada'),
+                'message': _('Su solicitud de despacho %s no ha sido enviada con exito') % (vals['task_title'])
             }
             # return {'title': 'Error', 'message': f'{e}'}
 

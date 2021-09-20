@@ -9,7 +9,9 @@
                         <div class="row justify-content-md-center">
                             <div class="col-12"
                                  style="box-shadow: 0px 0px 2.82px 1.8px rgba(0,0,0,.24), 0px 0px 1.96px 0.04px rgba(0,0,0,.16);border-radius:4px; ma">
-                                <h2 class="mt16 mb-6"><center>Create a new Dispatch Resquests</center></h2>
+                                <h2 class="mt16 mb-6">
+                                    <center>Create a new Dispatch Resquests</center>
+                                </h2>
                                 <div class="o_dispatch_form">
                                     <form action="/dispatch/validate" method="post" class="checkout_autoformat"
                                           enctype="multipart/form-data">
@@ -18,7 +20,8 @@
                                         </t>
                                         <div id="alert" style="display:none;"
                                              class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>&#128561;</strong> La cantidad solicitada es incorrecta. Revíselo
+                                            <strong>&#128561;</strong>
+                                            La cantidad solicitada es incorrecta. Revíselo
                                             por favor.
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">x</span>
@@ -27,7 +30,8 @@
                                         <div class="container">
                                             <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="partner_ids">Seleccionar
-                                                    Cliente</label>
+                                                    Cliente
+                                                </label>
                                                 <select id="partner_ids" name="partner_ids"
                                                         t-attf-class="form-control #{error.get('partner_ids') and 'is-invalid' or ''}">
                                                     <option value="">Cliente...</option>
@@ -43,6 +47,7 @@
                                             <div t-attf-class="row form-group #{error.get('task_title') and 'o_has_error' or ''} col-12 div_task_title">
                                                 <label class="control-label" for="name">Task Title</label>
                                                 <input type="text" name="task_title"
+                                                       t-att-readonly="1"
                                                        t-att-value="'task_title' in checkout and checkout['task_title']"
                                                        t-attf-class="form-control #{error.get('task_title') and 'is-invalid' or ''}"/>
                                             </div>
@@ -50,7 +55,8 @@
                                                 <div t-attf-class="form-group #{error.get('dispatch_date') and 'o_has_error' or ''} col-6"
                                                      id="div_email">
                                                     <label class="control-label" for="email">Fecha de despacho
-                                                        solicitada</label>
+                                                        solicitada
+                                                    </label>
                                                     <div class="input-group date" id="datetimepicker4"
                                                          data-target-input="nearest">
                                                         <input type="text" name="dispatch_date"
@@ -61,8 +67,9 @@
                                                                data-target="#datetimepicker4"/>
                                                         <div class="input-group-append" data-target="#datetimepicker4"
                                                              data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i
-                                                                    class="fa fa-calendar"></i>
+                                                            <div class="input-group-text">
+                                                                <i
+                                                                        class="fa fa-calendar"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -70,7 +77,8 @@
 
                                                 <div t-attf-class="form-group #{error.get('horarios_recepcion') and 'o_has_error' or ''} col-6 div_horarios_recepcion">
                                                     <label class="control-label" for="name">Horario de recepción
-                                                        posibles</label>
+                                                        posibles
+                                                    </label>
                                                     <input type="text" name="horarios_recepcion"
                                                            t-att-value="'horarios_recepcion' in checkout and checkout['horarios_recepcion']"
                                                            t-attf-class="form-control #{error.get('horarios_recepcion') and 'is-invalid' or ''}"/>
@@ -79,7 +87,8 @@
 
                                             <div t-attf-class="row form-group #{error.get('sale_order_id') and 'o_has_error' or ''} col-12 div_order">
                                                 <label class="control-label" for="sale_order_id">Seleccionar Órdenes de
-                                                    Compra</label>
+                                                    Compra
+                                                </label>
                                                 <select id="sale_order_id" name="sale_order_id"
                                                         t-attf-class="form-control #{error.get('sale_order_id') and 'is-invalid' or ''}">
                                                     <option value='0'>Pedidos...</option>
@@ -111,14 +120,16 @@
                                             <div class="row">
                                                 <div t-attf-class="form-group #{error.get('cantidad') and 'o_has_error' or ''} col-6 div_cantidad">
                                                     <label class="control-label" for="cantidad">Cantidad
-                                                        Solicitada</label>
+                                                        Solicitada
+                                                    </label>
                                                     <input type="number" name="cantidad"
                                                            t-attf-class="form-control #{error.get('cantidad') and 'is-invalid' or ''}"
                                                            t-att-value="'cantidad' in checkout and checkout['cantidad']"/>
                                                 </div>
                                                 <div class="col-6">
                                                     <label class="control-label" for="cantidad">Pendiente por
-                                                        Solicitar</label>
+                                                        Solicitar
+                                                    </label>
                                                     <input type="number" name="cantidad_pendiente"
                                                            class="form-control"
                                                            t-att-readonly="'1'"
@@ -128,7 +139,8 @@
 
                                             <div t-attf-class="row form-group col-12 div_delivery">
                                                 <label class="control-label" for="delivery_ids">Seleccionar
-                                                    Dirección de Entrega</label>
+                                                    Dirección de Entrega
+                                                </label>
                                                 <select id="delivery_ids" name="delivery_ids"
                                                         t-attf-class="form-control #{error.get('delivery_ids') and 'is-invalid' or ''}">
                                                     <option value="">Dirección de Entrega...</option>
@@ -174,8 +186,12 @@
             <div class="wrap">
                 <div class="container">
                     <div class="jumbotron mt32">
-                        <h4><span t-esc="title"/></h4>
-                        <p><span t-esc="message"/></p>
+                        <h4>
+                            <span t-esc="title"/>
+                        </h4>
+                        <p>
+                            <span t-esc="message"/>
+                        </p>
                     </div>
                 </div>
             </div>
