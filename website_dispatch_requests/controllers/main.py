@@ -132,7 +132,7 @@ class DispatchRequestsController(http.Controller):
                         cantidad = sale_order.product_uom_qty - sum_qty
                     if cantidad > 0 and order.id not in order_ids:
                         order_ids.append(order.id)
-                        order_names.append(order.client_order_ref + ' -' + order.name)
+                        order_names.append(f'{order.client_order_ref} - {order.name}')
             res['ids'] = order_ids
             res['names'] = order_names
         return res
