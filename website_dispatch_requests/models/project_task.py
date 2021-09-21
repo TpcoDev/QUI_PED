@@ -110,7 +110,9 @@ class ProjectTask(models.Model):
             self.planification_hora_date = fields.Datetime.now()
             display_msg = (
                 f"LC Disponible {self.lc_disponible} \n"
+                f"Planificacion {self.planification} \n"
                 f"Fecha y hora Planificacion {self.planification_hora_date} \n"
+                f"Fecha y hora LC {self.lc_fecha_hora} \n"
             )
 
             task = self.env['project.task'].search([('id', 'in', self.ids)], limit=1)
