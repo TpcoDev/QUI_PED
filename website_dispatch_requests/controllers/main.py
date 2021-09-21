@@ -146,6 +146,10 @@ class DispatchRequestsController(http.Controller):
         project_id = request.env['project.project'].search([
             ('is_fsm', '=', True), ('partner_id', '=', partner_id)
         ], limit=1)
+        if post.get('partner_ids', False):
+            project_id = request.env['project.project'].search([
+                ('is_fsm', '=', True), ('partner_id', '=', int(post['partner_ids']))
+            ], limit=1)
         if not project_id:
             errors.update({'error_message': 'El cliente no tiene un proyecto asociado'})
 
