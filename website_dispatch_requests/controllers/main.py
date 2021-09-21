@@ -151,7 +151,7 @@ class DispatchRequestsController(http.Controller):
                 ('is_fsm', '=', True), ('partner_id', '=', int(post['partner_ids']))
             ], limit=1)
         if not project_id:
-            errors.update({'error_message': 'El cliente no tiene un proyecto asociado'})
+            errors.update({'error_message': 'Usted no puede crear solicitudes, comuníquese con administrador Quimetal'})
 
         if errors:
             sale_order_lines = request.env['sale.order.line'].search(
