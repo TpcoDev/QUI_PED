@@ -99,6 +99,27 @@ class ProjectTask(models.Model):
         vals.update({'planification': 'pendiente'})
         return vals
 
+    @api.returns('mail.message', lambda value: value.id)
+    def message_chatter(self, **kwargs):
+        return super(ProjectTask, self).message_post(**kwargs)
+
+    @api.onchange('planification')
+    def _onchange_planification(self):
+        self.ensure_one()
+        if self.planification == 'planifica':
+            self.planification_hora_date = fields.Datetime.now()
+            display_msg = (
+                f"LC Disponible {self.lc_disponible} \n"
+                f"Fecha y hora Planificacion {self.planification_hora_date} \n"
+            )
+
+            task = self.env['project.task'].search([('id', 'in', self.ids)], limit=1)
+            if task:
+                task.message_chatter(
+                    subject="Pendiente -> Planifica",
+                    body=display_msg
+                )
+
     @api.model
     def create_project_task(self, vals):
         _logger.info('==== create a task ==== %r', vals)

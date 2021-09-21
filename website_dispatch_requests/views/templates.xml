@@ -15,8 +15,9 @@
                                 <div class="o_dispatch_form">
                                     <form action="/dispatch/validate" method="post" class="checkout_autoformat"
                                           enctype="multipart/form-data">
-                                        <t t-if="error" t-foreach="error.get('error_message', [])" t-as="err">
-                                            <h4 class="text-danger" t-esc="err"/>
+                                        <t t-if="error">
+                                            <t t-set="err" t-value="error['error_message']"/>
+                                            <h4 class="text-center text-danger" t-esc="err"/>
                                         </t>
                                         <div id="alert" style="display:none;"
                                              class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -196,6 +197,12 @@
                 </div>
             </div>
         </t>
+    </template>
+
+    <template id="portal_my_home_menu_sale_inherit" inherit_id="sale.portal_my_home_sale">
+        <xpath expr="//t[@t-call='portal.portal_docs_entry'][1]" position="replace">
+
+        </xpath>
     </template>
 
 </odoo>

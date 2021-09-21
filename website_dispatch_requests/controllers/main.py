@@ -142,6 +142,13 @@ class DispatchRequestsController(http.Controller):
         default = request.env['res.config.settings'].sudo().get_values()
         errors, error_msg = self.checkout_form_validate(post)
         partner_id = request.env.user.partner_id.id
+
+        project_id = request.env['project.project'].search([
+            ('is_fsm', '=', True), ('partner_id', '=', partner_id)
+        ], limit=1)
+        if not project_id:
+            errors.update({'error_message': 'El cliente no tiene un proyecto asociado'})
+
         if errors:
             sale_order_lines = request.env['sale.order.line'].search(
                 [('order_id.state', '=', 'sale'), ('order_id.partner_id', '=', partner_id)]
@@ -170,7 +177,7 @@ class DispatchRequestsController(http.Controller):
                 'error': errors,
                 'checkout': post,
             }
-            errors['error_message'] = error_msg
+            # errors['error_message'] = error_msg
             return request.render("website_dispatch_requests.dispatch_form", vals)
 
         task = request.env['project.task'].create_project_task(post)
